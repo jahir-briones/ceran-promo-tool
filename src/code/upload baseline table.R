@@ -3,18 +3,32 @@ library(DBI)
 library(readxl)
 library(dplyr)
 library(stringr)
+library(openssl)
+library(base64enc)
 
-# Create a connection object
+# Define the key
+key <- charToRaw("my_secret_key_12")  # 32-byte key for AES-256
+
+# Read and decode the encrypted password from the file
+
+encrypted_password_base64 <- readLines("src/crypt/encrypted_password.txt")
+encrypted_password <- base64decode(encrypted_password_base64)
+
+# Decrypt the password
+decrypted_password <- rawToChar(aes_cbc_decrypt(encrypted_password, key = key, iv = NULL))
+
+
+# Connect to the database
 con <- dbConnect(
   RPostgres::Postgres(),
-  dbname   = "promotool",
-  host     = "127.0.0.1",
-  port     = 5432,  # Default PostgreSQL port
-  user     = "postgres",
-  password = "AdminRGM$LATAM$2025"
+  dbname = "promotool",
+  host = "127.0.0.1",
+  port = 5432,  # Default PostgreSQL port
+  user = "postgres",
+  password = decrypted_password
 )
 
-df <- read_xlsx("Colombia/Baseline/Baseline Inretail.xlsx", sheet = "Base Baseline")
+df <- read_xlsx("data/Colombia/Baseline/Baseline Inretail.xlsx", sheet = "Base Baseline")
 names(df)
 # [1] "Fecha"             "Año"               "Mes"               "Cadena"            "Pais"              "EAN"               "SKU"              
 # [8] "Unidades Baseline" "Ventas Baseline" 
@@ -35,3 +49,6 @@ dbWriteTable(con, Id(schema = paste("ceran"), table = paste("baseline_old")),
 dbGetQuery(con, 'SELECT DISTINCT client FROM ceran.baseline_old')
 
 dbDisconnect(con)
+
+rm(list = ls())
+gc()

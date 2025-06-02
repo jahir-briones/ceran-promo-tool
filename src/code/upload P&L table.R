@@ -102,3 +102,6 @@ dbWriteTable(con, Id(schema = paste("ceran"), table = paste("profit_loss")),
 dbGetQuery(con, 'SELECT distinct client FROM ceran.profit_loss')
 
 dbDisconnect(con)
+
+rm(list = ls())
+gc()

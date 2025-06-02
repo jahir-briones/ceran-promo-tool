@@ -103,3 +103,6 @@ dbWriteTable(con, Id(schema = paste("ceran"), table = paste("sell_out")), data, 
 dbGetQuery(con, 'SELECT * FROM ceran.sell_out')
 
 dbDisconnect(con)
+
+rm(list = ls())
+gc()

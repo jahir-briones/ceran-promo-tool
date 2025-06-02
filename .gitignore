@@ -2,10 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
-.rds
-.csv
-.xlsx
-.txt
+*.rds
+*.csv
 *.xlsx
 *.ini
 *.txt

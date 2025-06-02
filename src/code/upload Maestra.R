@@ -40,7 +40,7 @@ new_names <- c("ean", "sku", "brand", "franchise", "manufacture", "category",
 names(df) <- new_names
 
 data <- df %>%
-  mutate(ean = as.character(EAN))
+  mutate(ean = as.character(ean))
 
 
 dbWriteTable(con, Id(schema = paste("ceran"), table = paste("maestra")),
@@ -49,3 +49,6 @@ dbWriteTable(con, Id(schema = paste("ceran"), table = paste("maestra")),
 dbGetQuery(con, 'SELECT * FROM ceran.maestra')
 
 dbDisconnect(con)
+
+rm(list = ls())
+gc()
