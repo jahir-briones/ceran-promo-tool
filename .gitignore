@@ -6,3 +6,6 @@
 .csv
 .xlsx
 .txt
+*.xlsx
+*.ini
+*.txt
