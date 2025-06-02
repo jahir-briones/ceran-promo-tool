@@ -1,32 +1,8 @@
-library(RPostgres)
-library(DBI)
 library(readxl)
 library(dplyr)
-library(stringr)
-library(openssl)
-library(base64enc)
 
-# Define the key
-key <- charToRaw("my_secret_key_12")  # 32-byte key for AES-256
+source("lib/con_pg.R")
 
-# Read and decode the encrypted password from the file
-
-encrypted_password_base64 <- readLines("src/crypt/encrypted_password.txt")
-encrypted_password <- base64decode(encrypted_password_base64)
-
-# Decrypt the password
-decrypted_password <- rawToChar(aes_cbc_decrypt(encrypted_password, key = key, iv = NULL))
-
-
-# Connect to the database
-con <- dbConnect(
-  RPostgres::Postgres(),
-  dbname = "promotool",
-  host = "127.0.0.1",
-  port = 5432,  # Default PostgreSQL port
-  user = "postgres",
-  password = decrypted_password
-)
 
 df0 <- read_xlsx("data/Colombia/Ventas/Ventas D2D.xlsx", sheet = "Base")
 df0 <- df0 %>% 
@@ -106,3 +82,5 @@ dbDisconnect(con)
 
 rm(list = ls())
 gc()
+
+print("Sell Out uploaded")

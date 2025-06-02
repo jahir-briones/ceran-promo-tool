@@ -121,23 +121,17 @@ ggplot(model_counts, aes(x = best_model, y = Frequency, fill = best_model)) +
   theme(legend.position = "none")
 
 
-market_df %>% 
+ean_baseline %>% 
   ungroup() %>% 
-  filter(Country == 'Costa Rica', Discount > 0) %>% 
-  group_by(Client) %>% 
-  summarise(units = sum(Units))
+  filter(EAN == '7501027209627') %>% 
+  group_by(Month,EAN) %>% 
+  summarise(units = sum(Units),
+            baseline = sum(baseline_no_discount))
 
 
-
-base %>% 
-  ungroup() %>% 
-  filter(country == 'Costa Rica', discount > 0) %>% 
-  group_by(client) %>% 
-  summarise(units = sum(real_units),
-            baseline = sum(baseline_units))
-
-
-dbGetQuery(con, "SELECT \"Client\", sum(\"baseline_no_discount\") as baseline FROM ceran.baseline_model_results 
-          where \"Country\" = 'Costa Rica'
-           group by 1") #THE TEST VALUES
+sell_out %>% 
+  filter(ean == '7501027209627') %>% 
+  group_by(month, year, ean) %>% 
+  summarise(units = sum(real_units))
+            
 

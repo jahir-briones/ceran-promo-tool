@@ -12,40 +12,16 @@ library(zoo)
 library(R6)
 library(tidyr)
 library(purrr)
-library(readxl)
-library(RPostgres)
-library(DBI)
-library(openssl)
-library(base64enc)
 library(raster)
 library(glue)
 
-# Define the key
-key <- charToRaw("my_secret_key_12")  # 32-byte key for AES-256
-
-# Read and decode the encrypted password from the file
-
-encrypted_password_base64 <- readLines("src/crypt/encrypted_password.txt")
-encrypted_password <- base64decode(encrypted_password_base64)
-
-# Decrypt the password
-decrypted_password <- rawToChar(aes_cbc_decrypt(encrypted_password, key = key, iv = NULL))
-
-
-# Connect to the database
-con <- dbConnect(
-  RPostgres::Postgres(),
-  dbname = "promotool",
-  host = "127.0.0.1",
-  port = 5432,  # Default PostgreSQL port
-  user = "postgres",
-  password = decrypted_password
-)
+source("lib/con_pg.R")
 
 # Fetch discounts data
+parts <- paste(sapply(names(filters), function(nm) sprintf("%s in ({%s*})", nm, nm)), collapse = " and ")
 
-query <- glue("SELECT * FROM ceran.discounts WHERE client IN('{client}') AND country IN('{country}')
-              AND date >= '2024-06-01'")
+query <- glue_data_sql(filters, paste("SELECT * FROM ceran.discounts where", 
+                                      parts,"AND date >= '2024-12-01'"), .con = con)
 discounts <- dbGetQuery(con, query)
 
 # discounts <- dbGetQuery(con, "SELECT * FROM ceran.discounts where 
@@ -54,11 +30,11 @@ discounts <- dbGetQuery(con, query)
 #                         client IN('Mi Farma')--,'Farmatodo', 'Inkafarma','Mi Farma')
 #                         ")
 
-query <- glue("SELECT DISTINCT
-                        date, year, month, client, country, ean, sku, real_units, real_sales
-                        FROM ceran.sell_out WHERE client IN('{client}') AND country IN('{country}')
-              AND date >= '2024-06-01'")
+query <- glue_data_sql(filters, paste("SELECT DISTINCT
+          date, year, month, client, country, ean, sku, real_units, real_sales
+          FROM ceran.sell_out WHERE", parts, "AND date >= '2024-12-01'"), .con = con)
 
+# Fetch sell out data
 sell_out <- dbGetQuery(con, query)
 # sell_out <- dbGetQuery(con, "
 #                         SELECT DISTINCT
@@ -69,9 +45,7 @@ sell_out <- dbGetQuery(con, query)
 #                         --OR 
 #                         client IN('Mi Farma')--,'Farmatodo', 'Inkafarma','Mi Farma')
 #                        ")
-table(discounts$client)
 
-dbDisconnect(con)
 
 discounts2 <- discounts %>% 
   dplyr::select(date,client, country, ean, promo_type, promo_name, discount_pct) %>% 
@@ -84,7 +58,6 @@ sell_out <- sell_out %>%
   dplyr::select(date, client, country, ean, sku, real_units, real_sales
                 #, real_sales
   ) %>% 
-  unique() %>% 
   mutate(date = as.Date(date, format = "%Y-%m-%d"),
          price = real_sales/real_units)
 
@@ -431,8 +404,7 @@ BaselineModel <- R6::R6Class(
           Above_SD = ifelse(Units > Mean_Units + SD_Units, TRUE, FALSE),  # Check if Units > Mean + SD
           Below_SD = ifelse(Units < Mean_Units - SD_Units, TRUE, FALSE)   # Check if Units < Mean - SD
         ) %>% 
-        dplyr::select(-c(Month, Mean_Units, SD_Units)) %>% 
-        unique()
+        dplyr::select(-c(Month, Mean_Units, SD_Units))
       
       group <- merged_data %>% 
         group_by(Country, Client, EAN, Date)
@@ -477,7 +449,6 @@ BaselineModel <- R6::R6Class(
       combo_data <- combo_data[train_index, ]
       
       group <- group %>%
-        unique() %>%
         filter(Units > 0) %>%
         #filter(Discount == 0) %>% 
         mutate(d2 = as.numeric(paste0(year(floor_date(Date, "month")), month(floor_date(Date, "month")))),
@@ -488,15 +459,14 @@ BaselineModel <- R6::R6Class(
       
       # Model object creator
       
-      results_lr <- group %>% do(data.frame(as.list(self$calculate_baseline(.))))#group %>% do(data.frame(t(unlist(self$calculate_baseline(.)))))
-      results_tree <- group %>% do(data.frame(as.list(self$calculate_baseline_tree(.)))) #group %>% do(data.frame(t(unlist(self$calculate_baseline_tree(.))))) 
-      results_xgb <- group %>% do(data.frame(as.list(self$calculate_baseline_xgb(.))))#group %>% do(data.frame(t(unlist(self$calculate_baseline_xgb(.))))) 
-      results_rf <- group %>% do(data.frame(as.list(self$calculate_baseline_rf(.))))#group %>% do(data.frame(t(unlist(self$calculate_baseline_rf(.))))) 
+      results_lr <- group %>% do(data.frame(as.list(self$calculate_baseline(.))))
+      results_tree <- group %>% do(data.frame(as.list(self$calculate_baseline_tree(.))))
+      results_xgb <- group %>% do(data.frame(as.list(self$calculate_baseline_xgb(.))))
+      results_rf <- group %>% do(data.frame(as.list(self$calculate_baseline_rf(.))))
       
       
       # Prepare testing data
       group_test <- group_test %>%
-        unique() %>%
         filter(Units > 0) %>%
         mutate(d2 = as.numeric(paste0(year(floor_date(Date, "month")), month(floor_date(Date, "month")))),
                d3 = as.numeric(year(floor_date(Date, "month"))),
@@ -522,14 +492,6 @@ BaselineModel <- R6::R6Class(
       results_rf <- as.data.frame(results_rf)
       results_rf <- results_rf[,1:6]
       
-      # print("---------------1---------------")
-      # print(results_lr)
-      # print("---------------2---------------")
-      # print(results_tree)
-      # print("---------------3---------------")
-      # print(results_xgb)
-      # print("---------------4---------------")
-      # print(results_rf)
       
       names(results_lr) <- c("Country", "Client", "EAN", "Date", "Baseline_LR", "r2_LR")
       names(results_tree) <- c("Country", "Client", "EAN", "Date", "Baseline_DT", "r2_DT")
@@ -540,18 +502,16 @@ BaselineModel <- R6::R6Class(
       compare_models <- left_join(results_lr, results_tree, by = c("Country", "Client", "EAN", "Date"))
       compare_models <- left_join(compare_models, results_xgb, by = c("Country", "Client", "EAN", "Date"))
       compare_models <- left_join(compare_models, results_rf, by = c("Country", "Client", "EAN", "Date"))
-      #print(nrow(compare_models))
       
       compare_models$Baseline_LR <- exp(compare_models$Baseline_LR)
       compare_models$Baseline_DT <- exp(compare_models$Baseline_DT)
       compare_models$Baseline_XGB <- exp(compare_models$Baseline_XGB)
       compare_models$Baseline_RF <- exp(compare_models$Baseline_RF)
       
-      #print(nrow(compare_models))
       compare_models <- left_join(compare_models, merged_data, by = c("Country", "Client", "EAN", "Date"))
       compare_models <- compare_models %>% 
         filter(is.na(Units) == F)
-      #print(nrow(compare_models))
+
       return(list(compare_models, merged_data))
     },
     
@@ -613,15 +573,6 @@ BaselineModel <- R6::R6Class(
 
 #######################################################################
 
-# Ensure the database connection is established
-con <- dbConnect(
-  RPostgres::Postgres(),
-  dbname = "promotool",
-  host = "127.0.0.1",
-  port = 5432,  # Default PostgreSQL port
-  user = "postgres",
-  password = decrypted_password
-)
 
 get_best_baseline = function(group) {
   # Helper to calculate R²
@@ -687,8 +638,7 @@ for (row in seq_len(nrow(unique_combinations))) {
     
     # Run the baseline calculations
     # if you need filter decoment
-    #baseline_model$data_profiling()
-    #baseline_model$remove_outliers("Units")
+    #baseline_model$data_profiling()l
     results <- baseline_model$run_baseline()
     
     # Extract the compare_models and merged_data
@@ -735,7 +685,7 @@ for (row in seq_len(nrow(unique_combinations))) {
     baseline_selected$baseline_no_discount <- exp(pred_units)
     
     
-    compare_models <- baseline_selected %>% unique()
+    compare_models <- baseline_selected# %>% unique()
     
     compare_models <- compare_models %>% 
       group_by(Country, Client, EAN) %>% 
@@ -759,8 +709,7 @@ Sys.time() - t
 
 cat("Processing complete. Results saved to the database.\n")
 
-ean_baseline <- dbGetQuery(con, glue("SELECT * FROM ceran.{TABLE_NAME_MODEL_RESULTS}
-                            WHERE \"Client\" IN('{client}')"))
+ean_baseline <- dbGetQuery(con, glue("SELECT * FROM ceran.{TABLE_NAME_MODEL_RESULTS}"))
 
 baseline <- ean_baseline %>%
   left_join(., sell_out %>%
@@ -789,7 +738,7 @@ table(baseline$client)
 
 
 table(market_df$Client)
-omit_combos <- ean_baseline %>% dplyr::select(Country, Client, EAN) %>% unique()
+omit_combos <- ean_baseline %>% dplyr::select(Country, Client, EAN)# %>% unique()
 
 # Filter out those combinations from market_df
 group <- market_df %>%
@@ -852,16 +801,14 @@ dbWriteTable(con, Id(schema = "ceran", table = BASELINE), baseline, overwrite = 
 base <- baseline %>% 
   dplyr::select(names(compare_models_no)) %>% 
   rbind(compare_models_no) %>% 
-  filter(baseline_units > 0) %>% 
-  unique()
+  filter(baseline_units > 0)
 
 table(base$client)
 
 
 dbWriteTable(con, Id(schema = "ceran", table = CONSOLIDATED_BASELINE), base, overwrite = TRUE)
 
-base <- dbGetQuery(con, glue("SELECT * FROM ceran.{CONSOLIDATED_BASELINE}
-                           where country not in('Costa Rica')"))
+base <- dbGetQuery(con, glue("SELECT * FROM ceran.{CONSOLIDATED_BASELINE}"))
 
 dbExecute(con, 'DROP TABLE IF EXISTS ceran.full_sku_baseline;')
 dbExecute(con, glue('
@@ -890,3 +837,6 @@ FROM ceran.{CONSOLIDATED_BASELINE} AS A
 LEFT JOIN ceran.maestra AS B
     ON A.ean = B.ean;
 '))
+
+rm(list = ls())
+gc()
