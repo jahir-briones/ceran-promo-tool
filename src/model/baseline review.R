@@ -1,38 +1,17 @@
-library(RPostgres)
-library(DBI)
 library(dplyr)
 library(lubridate)
-library(openssl)
-library(base64enc)
 library(ggplot2)
 
 
-# Define the key
-key <- charToRaw("my_secret_key_12")  # 32-byte key for AES-256
+source("lib/con_pg.R")
 
-# Read and decode the encrypted password from the file
-
-encrypted_password_base64 <- readLines("encrypted_password.txt")
-encrypted_password <- base64decode(encrypted_password_base64)
-
-# Decrypt the password
-decrypted_password <- rawToChar(aes_cbc_decrypt(encrypted_password, key = key, iv = NULL))
-
-
-# Connect to the database
-con <- dbConnect(
-  RPostgres::Postgres(),
-  dbname = "promotool",
-  host = "127.0.0.1",
-  port = 5432,  # Default PostgreSQL port
-  user = "postgres",
-  password = decrypted_password
-)
-
-dbGetQuery(con, 'SELECT * FROM ceran.baseline_model_results limit 10') #THE TEST VALUES
+DF <- dbGetQuery(con, "SELECT * FROM ceran.baseline_model_results
+           WHERE \"EAN\" = '7501027209627' AND
+         \"Client\" = 'Mi Farma'") #THE TEST VALUES
 
 #ean_baseline <- dbGetQuery(con, 'SELECT * FROM ceran.baseline') THE OK VALUES
-baseline <- dbGetQuery(con, 'SELECT DISTINCT * FROM ceran.consolidated_baseline') #THE TEST VALUES
+baseline <- dbGetQuery(con, 'SELECT DISTINCT * FROM ceran.consolidated_baseline_test') #THE TEST VALUES
+table(baseline$client)
 # ean_baseline_no <- dbGetQuery(con, 'SELECT * FROM ceran.baseline_no_model_results')
 # baseline_old <- dbGetQuery(con, "SELECT * FROM ceran.baseline_old
 #                            WHERE client = 'Inkafarma'")
@@ -45,8 +24,9 @@ baseline <- dbGetQuery(con, 'SELECT DISTINCT * FROM ceran.consolidated_baseline'
 # Example group for visualization 
 #'7509552792287',7509552455557','3600524057336','6923700977561','3600542081160','7509552845884','7509552849516'
 example_group <- baseline %>%
-  filter(ean == '7509552844184'
-         ,discount != 0# 7899706130899, 7509552455557 , 7509552792287, 7509552849516
+  filter(ean == '7501027209627',
+         client == 'Mi Farma'
+         ,discount > 0# 7899706130899, 7509552455557 , 7509552792287, 7509552849516
          ) 
 
 merged_data_for_viz <- example_group
@@ -72,6 +52,7 @@ merged_data_for_viz <- merged_data_for_viz %>%
 ggplot(merged_data_for_viz, aes(x = date)) +
   geom_line(aes(y = Units, color = "Units Sales"), size = 1, linetype = "solid") +
   geom_line(aes(y = best_baseline, color = "Baseline No Discount"), size = 1, linetype = "dotdash") +
+  
   geom_text(aes(y = Units, label = round(Units, 0)), 
             color = "black", vjust = -0.7, size = 3, show.legend = FALSE) +
   geom_text(aes(y = best_baseline, label = round(best_baseline, 0)), 
@@ -121,23 +102,23 @@ ggplot(model_counts, aes(x = best_model, y = Frequency, fill = best_model)) +
   theme(legend.position = "none")
 
 
+ean_baseline %>% 
+  ungroup() %>% 
+  filter(EAN == '7501027209627',Discount > 0) %>% 
+  group_by(Month,EAN) %>% 
+  summarise(units = sum(Units),
+            baseline = sum(baseline_no_discount))
+
+
+sell_out %>% 
+  filter(ean == '7501027209627') %>% 
+  group_by(month, year, ean) %>% 
+  summarise(units = sum(real_units))
+            
+
 market_df %>% 
-  ungroup() %>% 
-  filter(Country == 'Costa Rica', Discount > 0) %>% 
-  group_by(Client) %>% 
+  filter(EAN == '7501027209627') %>% 
+  mutate(Month = floor_date(Date, "month")) %>%  # Extract the month from the Date
+  group_by(Month, EAN, promo_type) %>% 
   summarise(units = sum(Units))
-
-
-
-base %>% 
-  ungroup() %>% 
-  filter(country == 'Costa Rica', discount > 0) %>% 
-  group_by(client) %>% 
-  summarise(units = sum(real_units),
-            baseline = sum(baseline_units))
-
-
-dbGetQuery(con, "SELECT \"Client\", sum(\"baseline_no_discount\") as baseline FROM ceran.baseline_model_results 
-          where \"Country\" = 'Costa Rica'
-           group by 1") #THE TEST VALUES
 
