@@ -1,40 +1,16 @@
-library(RPostgres)
-library(DBI)
 library(dplyr)
 library(lubridate)
-library(openssl)
-library(base64enc)
 library(ggplot2)
 
 
-# Define the key
-key <- charToRaw("my_secret_key_12")  # 32-byte key for AES-256
-
-# Read and decode the encrypted password from the file
-
-encrypted_password_base64 <- readLines("encrypted_password.txt")
-encrypted_password <- base64decode(encrypted_password_base64)
-
-# Decrypt the password
-decrypted_password <- rawToChar(aes_cbc_decrypt(encrypted_password, key = key, iv = NULL))
-
-
-# Connect to the database
-con <- dbConnect(
-  RPostgres::Postgres(),
-  dbname = "promotool",
-  host = "127.0.0.1",
-  port = 5432,  # Default PostgreSQL port
-  user = "postgres",
-  password = decrypted_password
-)
+source("lib/con_pg.R")
 
 DF <- dbGetQuery(con, "SELECT * FROM ceran.baseline_model_results
            WHERE \"EAN\" = '7501027209627' AND
          \"Client\" = 'Mi Farma'") #THE TEST VALUES
 
 #ean_baseline <- dbGetQuery(con, 'SELECT * FROM ceran.baseline') THE OK VALUES
-baseline <- dbGetQuery(con, 'SELECT DISTINCT * FROM ceran.consolidated_baseline') #THE TEST VALUES
+baseline <- dbGetQuery(con, 'SELECT DISTINCT * FROM ceran.consolidated_baseline_test') #THE TEST VALUES
 # ean_baseline_no <- dbGetQuery(con, 'SELECT * FROM ceran.baseline_no_model_results')
 # baseline_old <- dbGetQuery(con, "SELECT * FROM ceran.baseline_old
 #                            WHERE client = 'Inkafarma'")
@@ -59,7 +35,7 @@ merged_data_for_viz <- merged_data_for_viz %>%
   ) %>%
   group_by(date,ean) %>%
   summarise(Units = sum(real_units),
-            best_baseline = sum(best_baseline),
+            best_baseline = sum(baseline_units),
             #baseline_no_discount = sum(baseline_no_discount),
             #old_price = mean(price_old),
             price = mean(price)
@@ -75,6 +51,7 @@ merged_data_for_viz <- merged_data_for_viz %>%
 ggplot(merged_data_for_viz, aes(x = date)) +
   geom_line(aes(y = Units, color = "Units Sales"), size = 1, linetype = "solid") +
   geom_line(aes(y = best_baseline, color = "Baseline No Discount"), size = 1, linetype = "dotdash") +
+  
   geom_text(aes(y = Units, label = round(Units, 0)), 
             color = "black", vjust = -0.7, size = 3, show.legend = FALSE) +
   geom_text(aes(y = best_baseline, label = round(best_baseline, 0)), 

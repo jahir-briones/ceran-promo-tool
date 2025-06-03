@@ -11,7 +11,8 @@ source("src/code/upload P&L table.R", encoding = 'utf8')
 
 ### Vars to model
 
-filters = list( 'client' = c('Inkafarma','Mi Farma'),
+#filters = list( 'client' = c('Inkafarma','Mi Farma'),
+filters = list( 'client' = c('Mi Farma'),
                'country' = 'Peru')
 
 condition_write_table <- FALSE # IF FALSE THEN WRITE NEW TABLE

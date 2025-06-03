@@ -21,7 +21,7 @@ source("lib/con_pg.R")
 parts <- paste(sapply(names(filters), function(nm) sprintf("%s in ({%s*})", nm, nm)), collapse = " and ")
 
 query <- glue_data_sql(filters, paste("SELECT * FROM ceran.discounts where", 
-                                      parts,"AND date >= '2024-12-01'"), .con = con)
+                                      parts,"AND date >= '2024-07-01'"), .con = con)
 discounts <- dbGetQuery(con, query)
 
 # discounts <- dbGetQuery(con, "SELECT * FROM ceran.discounts where 
@@ -32,7 +32,7 @@ discounts <- dbGetQuery(con, query)
 
 query <- glue_data_sql(filters, paste("SELECT DISTINCT
           date, year, month, client, country, ean, sku, real_units, real_sales
-          FROM ceran.sell_out WHERE", parts, "AND date >= '2024-12-01'"), .con = con)
+          FROM ceran.sell_out WHERE", parts, "AND date >= '2024-07-01'"), .con = con)
 
 # Fetch sell out data
 sell_out <- dbGetQuery(con, query)
@@ -61,7 +61,6 @@ sell_out <- sell_out %>%
   mutate(date = as.Date(date, format = "%Y-%m-%d"),
          price = real_sales/real_units)
 
-cols_names <- c("date","client","country","ean","sku","real_units","real_sales", "price","promo_type", "promo_name", "discount_pct")
 
 market <- sell_out %>% 
   left_join(., discounts2, by = c("date","client","country","ean")) %>% 
@@ -74,15 +73,7 @@ market <- sell_out %>%
             real_sales = mean(real_sales),
             price = mean(price),
             discount_pct = max(discount_pct)) %>% 
-  dplyr::select(cols_names)
-
-market2 <- market %>%
-  group_by(date, client, country, ean, sku) %>%
-  mutate(counts = row_number()) %>% 
-  unique()
-
-# write.csv(market2,
-#          "bases/base.csv")
+  dplyr::select(date,client,country,ean,sku,real_units,real_sales, price,promo_type, promo_name, discount_pct)
 
 # Prepare market data
 names(market) <- c("Date","Client","Country","EAN","SKU","Units","Sales", "price","promo_type", "promo_name", "Discount")
@@ -398,10 +389,11 @@ BaselineModel <- R6::R6Class(
       merged_data <- merged_data %>%
         group_by(Country, Client, EAN, Date) %>%
         summarize(Units = sum(Units, na.rm = TRUE)) %>%
-        inner_join(., filtered_data_merged, by = c("Country", "Client", "EAN", "Date"))
+        inner_join(., filtered_data_merged, by = c("Country", "Client", "EAN", "Date")) %>% 
+        mutate_if(is.numeric, ~replace(., is.na(.), 0)) %>% 
+        mutate_if(is.character, ~replace(., is.na(.), ""))
       
       
-      merged_data[is.na(merged_data)] <- 0
       merged_data <- merged_data %>% 
         mutate(Month = floor_date(Date, "month")) %>%  # Extract the month from the Date
         group_by(Country, Client, EAN, Month) %>%
@@ -432,8 +424,9 @@ BaselineModel <- R6::R6Class(
       
       # Merge with original data and fill missing Units with 0
       group <- complete_data %>%
-        left_join(group, by = c("Country", "Client", "EAN", "Date"))
-      group[is.na(group)] <- 0
+        left_join(group, by = c("Country", "Client", "EAN", "Date")) %>% 
+        mutate_if(is.numeric, ~replace(., is.na(.), 0)) %>% 
+        mutate_if(is.character, ~replace(., is.na(.), ""))
       
       group$WeekOfMonth <- ((day(group$Date) - 1) %/% 7) + 1
       group$DayOfWeek <- wday(group$Date)
@@ -736,7 +729,7 @@ baseline <- ean_baseline %>%
                 client = Client,
                 country = Country,
                 ean = EAN,
-                sku = SKU,
+                sku = SKU.x,
                 real_units = Units,
                 real_sales = Sales,
                 price = price,
@@ -850,5 +843,5 @@ LEFT JOIN ceran.maestra AS B
     ON A.ean = B.ean;
 '))
 
-rm(list = ls())
-gc()
+#rm(list = ls())
+#gc()
