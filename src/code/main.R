@@ -4,7 +4,6 @@ system('pg_ctl -D "C:/Users/jahir.briones/AppData/Roaming/pgsql/RGM" -l archivo_
 
 source("src/code/upload Maestra.R", encoding = 'utf8')
 source("src/code/upload ventas table.R", encoding = 'utf8')
-#source("src/code/upload baseline table.R", encoding = 'utf8')
 source("src/code/upload discounts table.R", encoding = 'utf8')
 source("src/code/upload P&L table.R", encoding = 'utf8')
 
@@ -15,7 +14,6 @@ gc()
 
 
 filters = list( 'client' = c('WM-Bodega','WM-Descuento','WM-Hipermercado','WM-Supermercado'),
-#filters = list( 'client' = c('Mi Farma'),
                'country' = 'Costa Rica')
 
 condition_write_table <- TRUE # IF FALSE THEN WRITE NEW TABLE
@@ -25,6 +23,6 @@ BASELINE <- "baseline_test"
 CONSOLIDATED_BASELINE <- "consolidated_baseline_test"
 
 source("src/model/baseline model.R", encoding = 'utf8')
-#source("code/consolida tablas.R")  
+
 
 system('pg_ctl -D "C:/Users/jahir.briones/AppData/Roaming/pgsql/RGM" -l archivo_de_registro stop')
