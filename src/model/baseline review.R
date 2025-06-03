@@ -29,7 +29,9 @@ con <- dbConnect(
   password = decrypted_password
 )
 
-dbGetQuery(con, 'SELECT * FROM ceran.baseline_model_results limit 10') #THE TEST VALUES
+DF <- dbGetQuery(con, "SELECT * FROM ceran.baseline_model_results
+           WHERE \"EAN\" = '7501027209627' AND
+         \"Client\" = 'Mi Farma'") #THE TEST VALUES
 
 #ean_baseline <- dbGetQuery(con, 'SELECT * FROM ceran.baseline') THE OK VALUES
 baseline <- dbGetQuery(con, 'SELECT DISTINCT * FROM ceran.consolidated_baseline') #THE TEST VALUES
@@ -45,8 +47,9 @@ baseline <- dbGetQuery(con, 'SELECT DISTINCT * FROM ceran.consolidated_baseline'
 # Example group for visualization 
 #'7509552792287',7509552455557','3600524057336','6923700977561','3600542081160','7509552845884','7509552849516'
 example_group <- baseline %>%
-  filter(ean == '7509552844184'
-         ,discount != 0# 7899706130899, 7509552455557 , 7509552792287, 7509552849516
+  filter(ean == '7501027209627',
+         client == 'Mi Farma'
+         ,discount > 0# 7899706130899, 7509552455557 , 7509552792287, 7509552849516
          ) 
 
 merged_data_for_viz <- example_group
@@ -56,7 +59,7 @@ merged_data_for_viz <- merged_data_for_viz %>%
   ) %>%
   group_by(date,ean) %>%
   summarise(Units = sum(real_units),
-            best_baseline = sum(baseline_units),
+            best_baseline = sum(best_baseline),
             #baseline_no_discount = sum(baseline_no_discount),
             #old_price = mean(price_old),
             price = mean(price)
@@ -123,7 +126,7 @@ ggplot(model_counts, aes(x = best_model, y = Frequency, fill = best_model)) +
 
 ean_baseline %>% 
   ungroup() %>% 
-  filter(EAN == '7501027209627') %>% 
+  filter(EAN == '7501027209627',Discount > 0) %>% 
   group_by(Month,EAN) %>% 
   summarise(units = sum(Units),
             baseline = sum(baseline_no_discount))
@@ -134,4 +137,10 @@ sell_out %>%
   group_by(month, year, ean) %>% 
   summarise(units = sum(real_units))
             
+
+market_df %>% 
+  filter(EAN == '7501027209627') %>% 
+  mutate(Month = floor_date(Date, "month")) %>%  # Extract the month from the Date
+  group_by(Month, EAN, promo_type) %>% 
+  summarise(units = sum(Units))
 

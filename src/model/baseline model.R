@@ -61,6 +61,7 @@ sell_out <- sell_out %>%
   mutate(date = as.Date(date, format = "%Y-%m-%d"),
          price = real_sales/real_units)
 
+cols_names <- c("date","client","country","ean","sku","real_units","real_sales", "price","promo_type", "promo_name", "discount_pct")
 
 market <- sell_out %>% 
   left_join(., discounts2, by = c("date","client","country","ean")) %>% 
@@ -68,11 +69,17 @@ market <- sell_out %>%
   group_by(date, client, country, ean, discount_pct) %>% 
   mutate(counts = row_number()) %>% 
   filter(counts == 1) %>% 
-  dplyr::select(-counts)
+  group_by(date,client,country,ean,sku,promo_type,promo_name) %>% 
+  summarise(real_units = mean(real_units),
+            real_sales = mean(real_sales),
+            price = mean(price),
+            discount_pct = max(discount_pct)) %>% 
+  dplyr::select(cols_names)
 
 market2 <- market %>%
   group_by(date, client, country, ean, sku) %>%
-  mutate(counts = row_number())
+  mutate(counts = row_number()) %>% 
+  unique()
 
 # write.csv(market2,
 #          "bases/base.csv")
@@ -711,10 +718,15 @@ cat("Processing complete. Results saved to the database.\n")
 
 ean_baseline <- dbGetQuery(con, glue("SELECT * FROM ceran.{TABLE_NAME_MODEL_RESULTS}"))
 
+market_df_cat <- market_df %>% 
+  ungroup() %>% 
+  dplyr::select(Country, Client, Date, EAN, SKU, Sales) %>% 
+  unique()
+
 baseline <- ean_baseline %>%
-  left_join(., sell_out %>%
-              mutate(date = as.Date(date, format = "%Y-%m-%d")),
-            by = c("Date"="date","Client"="client","EAN"="ean")) %>%
+  left_join(., market_df_cat %>%
+              mutate(date = as.Date(Date, format = "%Y-%m-%d")),
+            by = c("Date"="Date","Client"="Client","EAN"="EAN","Country"="Country")) %>%
   mutate(
     year = as.character(year(Date))
   ) %>% 
@@ -722,12 +734,12 @@ baseline <- ean_baseline %>%
                 year,
                 month = Month,
                 client = Client,
-                country,
+                country = Country,
                 ean = EAN,
-                sku = sku,
-                real_units,
-                real_sales,
-                price = price.x,
+                sku = SKU,
+                real_units = Units,
+                real_sales = Sales,
+                price = price,
                 discount = Discount,
                 baseline_units = baseline_no_discount) %>%
   mutate(baseline_sales = round((baseline_units*real_sales/real_units)))
@@ -738,7 +750,7 @@ table(baseline$client)
 
 
 table(market_df$Client)
-omit_combos <- ean_baseline %>% dplyr::select(Country, Client, EAN)# %>% unique()
+omit_combos <- ean_baseline %>% dplyr::select(Country, Client, EAN) %>% unique()
 
 # Filter out those combinations from market_df
 group <- market_df %>%
@@ -773,9 +785,9 @@ compare_models_no_model <- group %>%
   )
 
 compare_models_no <- compare_models_no_model %>%
-  left_join(., sell_out %>%
-              mutate(date = as.Date(date, format = "%Y-%m-%d")),
-            by = c("Date"="date","Client"="client","EAN"="ean")) %>%
+  left_join(., market_df_cat %>%
+              mutate(date = as.Date(Date, format = "%Y-%m-%d")),
+            by = c("Date"="Date","Client"="Client","EAN"="EAN","Country"="Country")) %>%
   mutate(
     year = as.character(year(Date))
   ) %>% 
@@ -784,12 +796,12 @@ compare_models_no <- compare_models_no_model %>%
                 year,
                 month = Month,
                 client = Client,
-                country,
+                country = Country,
                 ean = EAN,
-                sku = sku,
-                real_units,
-                real_sales,
-                price = price.x,
+                sku = SKU.x,
+                real_units = Units,
+                real_sales = Sales.x,
+                price = price,
                 discount = Discount,
                 baseline_units = best_baseline) %>%
   mutate(baseline_sales = round((baseline_units*real_sales/real_units)))

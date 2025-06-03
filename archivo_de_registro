@@ -47,3 +47,15 @@
 2025-06-02 16:28:54.134 CST [28092] LOG:  checkpoint completo: escritos 2901 búfers (17.7%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=269.550 s, sync=0.021 s, total=269.607 s; archivos sincronizados=49, más largo=0.002 s, promedio=0.001 s; distancia=22427 kB, estimación=22427 kB; lsn=1/2B7ACC98, lsn de redo=1/2B7ACC08
 2025-06-02 16:34:24.189 CST [28092] LOG:  empezando checkpoint: time
 2025-06-02 16:34:24.512 CST [28092] LOG:  checkpoint completo: escritos 3 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.310 s, sync=0.002 s, total=0.323 s; archivos sincronizados=1, más largo=0.002 s, promedio=0.002 s; distancia=21 kB, estimación=20186 kB; lsn=1/2B7B2218, lsn de redo=1/2B7B21C0
+2025-06-02 19:04:24.927 CST [28092] LOG:  empezando checkpoint: time
+2025-06-02 19:04:25.313 CST [28092] LOG:  checkpoint completo: escritos 3 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.334 s, sync=0.011 s, total=0.387 s; archivos sincronizados=1, más largo=0.011 s, promedio=0.011 s; distancia=21 kB, estimación=18170 kB; lsn=1/2B7B7920, lsn de redo=1/2B7B78C8
+2025-06-02 19:05:55.038 CST [5012] ERROR:  error de sintaxis en o cerca de Â«,Â» en carÃ¡cter 84
+2025-06-02 19:05:55.038 CST [5012] SENTENCIA:  SELECT * FROM ceran.baseline_model_results
+	           WHERE "EAN" = '7501027209627',
+	         "Client" = 'Mi Farma'
+2025-06-02 19:09:24.333 CST [28092] LOG:  empezando checkpoint: time
+2025-06-02 19:09:24.784 CST [28092] LOG:  checkpoint completo: escritos 4 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.433 s, sync=0.002 s, total=0.452 s; archivos sincronizados=1, más largo=0.002 s, promedio=0.002 s; distancia=15 kB, estimación=16354 kB; lsn=1/2B7BB800, lsn de redo=1/2B7BB7A8
+2025-06-02 19:24:24.820 CST [28092] LOG:  empezando checkpoint: time
+2025-06-02 19:28:54.152 CST [28092] LOG:  checkpoint completo: escritos 3026 búfers (18.5%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=269.250 s, sync=0.050 s, total=269.333 s; archivos sincronizados=52, más largo=0.012 s, promedio=0.001 s; distancia=23151 kB, estimación=23151 kB; lsn=1/2CE57808, lsn de redo=1/2CE57778
+2025-06-02 19:44:24.263 CST [28092] LOG:  empezando checkpoint: time
+2025-06-02 19:48:54.075 CST [28092] LOG:  checkpoint completo: escritos 2901 búfers (17.7%); 0 archivos WAL añadidos, 2 eliminados, 0 reciclados; write=269.709 s, sync=0.025 s, total=269.812 s; archivos sincronizados=52, más largo=0.002 s, promedio=0.001 s; distancia=22447 kB, estimación=23081 kB; lsn=1/2E443478, lsn de redo=1/2E4433E8
