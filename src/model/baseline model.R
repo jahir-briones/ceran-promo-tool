@@ -800,8 +800,8 @@ compare_models_no <- compare_models_no_model %>%
   mutate(baseline_sales = round((baseline_units*real_sales/real_units)))
 
 
-dbWriteTable(con, Id(schema = "ceran", table = TABLE_NAME_NO_MODEL_RESULTS), compare_models_no, overwrite = TRUE)
-dbWriteTable(con, Id(schema = "ceran", table = BASELINE), baseline, overwrite = TRUE)
+dbWriteTable(con, Id(schema = "ceran", table = TABLE_NAME_NO_MODEL_RESULTS), compare_models_no, append = TRUE)
+dbWriteTable(con, Id(schema = "ceran", table = BASELINE), baseline, append = TRUE)
 
 base <- baseline %>% 
   dplyr::select(names(compare_models_no)) %>% 
@@ -811,7 +811,7 @@ base <- baseline %>%
 table(base$client)
 
 
-dbWriteTable(con, Id(schema = "ceran", table = CONSOLIDATED_BASELINE), base, overwrite = TRUE)
+dbWriteTable(con, Id(schema = "ceran", table = CONSOLIDATED_BASELINE), base, append = TRUE)
 
 base <- dbGetQuery(con, glue("SELECT * FROM ceran.{CONSOLIDATED_BASELINE}"))
 

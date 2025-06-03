@@ -11,6 +11,7 @@ DF <- dbGetQuery(con, "SELECT * FROM ceran.baseline_model_results
 
 #ean_baseline <- dbGetQuery(con, 'SELECT * FROM ceran.baseline') THE OK VALUES
 baseline <- dbGetQuery(con, 'SELECT DISTINCT * FROM ceran.consolidated_baseline_test') #THE TEST VALUES
+table(baseline$client)
 # ean_baseline_no <- dbGetQuery(con, 'SELECT * FROM ceran.baseline_no_model_results')
 # baseline_old <- dbGetQuery(con, "SELECT * FROM ceran.baseline_old
 #                            WHERE client = 'Inkafarma'")

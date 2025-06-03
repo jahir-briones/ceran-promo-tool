@@ -10,12 +10,15 @@ source("src/code/upload P&L table.R", encoding = 'utf8')
 
 
 ### Vars to model
+rm(list = ls())
+gc()
 
-#filters = list( 'client' = c('Inkafarma','Mi Farma'),
-filters = list( 'client' = c('Mi Farma'),
-               'country' = 'Peru')
 
-condition_write_table <- FALSE # IF FALSE THEN WRITE NEW TABLE
+filters = list( 'client' = c('WM-Bodega','WM-Descuento','WM-Hipermercado','WM-Supermercado'),
+#filters = list( 'client' = c('Mi Farma'),
+               'country' = 'Costa Rica')
+
+condition_write_table <- TRUE # IF FALSE THEN WRITE NEW TABLE
 TABLE_NAME_MODEL_RESULTS <- "baseline_model_results_test"
 TABLE_NAME_NO_MODEL_RESULTS <- "baseline_no_model_results_test"
 BASELINE <- "baseline_test"
