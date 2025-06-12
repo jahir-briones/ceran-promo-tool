@@ -15,7 +15,7 @@ gc()
 
 
 filters = list('client' = c('Mi Farma','Inkafarma','Inkafarma','Mi Farma','WM-Bodega','WM-Descuento', 'WM-Hipermercado','WM-Supermercado')
-               #,'country' = c('Costa Rica','Peru')
+               ,'country' = c('Peru')
                )
 
 condition_write_table <- F # IF FALSE THEN WRITE NEW TABLE

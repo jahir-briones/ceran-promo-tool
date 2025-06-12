@@ -765,14 +765,13 @@ table(baseline$client)
 
 
 table(market_df$Client)
-omit_combos <- baseline %>% dplyr::select(country, client, ean, month, date) %>% unique()
+omit_combos <- baseline %>% dplyr::select(country, client, ean,date) %>% unique()
 
 # Filter out those combinations from market_df
 group <- market_df %>%
   anti_join(omit_combos, by = c("Country"="country",
                                 "Client"="client",
                                 "EAN"="ean",
-                                "Month"="month",
                                 "Date"="date"))
 
 # Create a complete date sequence

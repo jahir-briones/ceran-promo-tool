@@ -10,7 +10,7 @@ DF <- dbGetQuery(con, "SELECT * FROM ceran.baseline_model_results
          \"Client\" = 'Mi Farma'") #THE TEST VALUES
 
 #ean_baseline <- dbGetQuery(con, 'SELECT * FROM ceran.baseline') THE OK VALUES
-baseline <- dbGetQuery(con, 'SELECT * FROM ceran.baseline_model_results_test') #THE TEST VALUES
+baseline <- dbGetQuery(con, 'SELECT * FROM ceran.baseline_model_results_test_peru') #THE TEST VALUES
 table(baseline$Client, baseline$Country)
 # ean_baseline_no <- dbGetQuery(con, 'SELECT * FROM ceran.baseline_no_model_results')
 # baseline_old <- dbGetQuery(con, "SELECT * FROM ceran.baseline_old
