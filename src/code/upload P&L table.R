@@ -1,8 +1,6 @@
 library(readxl)
 library(dplyr)
 
-source("lib/con_pg.R")
-
 
 df0 <- read_xlsx("data/Colombia/P&L/P&L D2D.xlsx", sheet = "Sheet1")[,1:12]
 df0 <- df0 %>% 
@@ -50,7 +48,7 @@ df11 <- read_xlsx("data/Colombia/P&L/P&L Guatemala WM.xlsx", sheet = "Sheet1")[,
 df11 <- df11 %>% 
   mutate(Fecha = format(as.Date(Fecha, format="%Y-%m-%d")))
 
-df12 <- read_xlsx("data/Colombia/P&L/P&L Walmart Costa Rica.xlsx", sheet = "Sheet1")[,1:12]
+df12 <- read_xlsx("data/Colombia/P&L/P&L WM Costa Rica.xlsx", sheet = "Sheet1")[,1:12]
 df12 <- df12 %>% 
   mutate(Fecha = format(as.Date(Fecha, format="%Y-%m-%d")))
 df13 <- read_xlsx("data/Colombia/P&L/P&L HN.xlsx", sheet = "Sheet1")[,1:12]
@@ -83,6 +81,7 @@ data <- df %>%
          year = str_pad(year, 4, pad = "0")) %>% 
          select(date,year,month,customer_id, customer,client,country,pl_product,product,compass_product_code,ean,scenario,pl_total)
 
+source("lib/con_pg.R")
 
 dbWriteTable(con, Id(schema = paste("ceran"), table = paste("profit_loss")),
              data, overwrite = TRUE)

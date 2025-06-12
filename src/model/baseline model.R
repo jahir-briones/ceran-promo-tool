@@ -21,7 +21,7 @@ source("lib/con_pg.R")
 parts <- paste(sapply(names(filters), function(nm) sprintf("%s in ({%s*})", nm, nm)), collapse = " and ")
 
 query <- glue_data_sql(filters, paste("SELECT * FROM ceran.discounts where", 
-                                      parts,"AND date >= '2024-07-01'"), .con = con)
+                                      parts,"AND date >= '2024-01-01'"), .con = con)
 discounts <- dbGetQuery(con, query)
 
 # discounts <- dbGetQuery(con, "SELECT * FROM ceran.discounts where 
@@ -30,9 +30,19 @@ discounts <- dbGetQuery(con, query)
 #                         client IN('Mi Farma')--,'Farmatodo', 'Inkafarma','Mi Farma')
 #                         ")
 
+table(discounts$client)
+
+query <- glue_data_sql(filters, paste("SELECT year, client, sum(real_units), sum(real_sales)
+          FROM ceran.sell_out WHERE", parts, "AND date >= '2024-01-01'
+          AND ean = '7899706194273'
+                                      GROUP BY 1,2"), .con = con)
+
+dbGetQuery(con, query)
+
+
 query <- glue_data_sql(filters, paste("SELECT DISTINCT
           date, year, month, client, country, ean, sku, real_units, real_sales
-          FROM ceran.sell_out WHERE", parts, "AND date >= '2024-07-01'"), .con = con)
+          FROM ceran.sell_out WHERE", parts, "AND date >= '2024-01-01'"), .con = con)
 
 # Fetch sell out data
 sell_out <- dbGetQuery(con, query)
@@ -61,6 +71,7 @@ sell_out <- sell_out %>%
   mutate(date = as.Date(date, format = "%Y-%m-%d"),
          price = real_sales/real_units)
 
+table(sell_out$client)
 
 market <- sell_out %>% 
   left_join(., discounts2, by = c("date","client","country","ean")) %>% 
@@ -80,12 +91,13 @@ names(market) <- c("Date","Client","Country","EAN","SKU","Units","Sales", "price
 
 #rasterOptions(todisk = F)
 market_df <- market %>%
+  filter(Client %in% c('Inkafarma','Mi Farma','WM-Bodega','WM-Descuento', 'WM-Hipermercado','WM-Supermercado'),
+         Country %in% c('Costa Rica','Peru'),
+         Date >= '2024-01-01') %>% 
   mutate(Date = as.Date(Date, format = "%Y-%m-%d"),
          EAN = as.character(EAN)) %>%
   mutate_if(is.numeric, ~replace(., is.na(.), 0)) %>% 
-  mutate_if(is.character, ~replace(., is.na(.), "")) %>% 
-  filter(#EAN == '7509552817348',
-    Date >= '2024-01-01')
+  mutate_if(is.character, ~replace(., is.na(.), ""))
 
 
 table(market_df$Client, market_df$Country)
@@ -610,6 +622,7 @@ get_best_baseline = function(group) {
 unique_combinations <- market_df %>%
   ungroup() %>% 
   dplyr::select(Country, Client, EAN) %>% 
+  filter(Country == 'Peru') %>% 
   unique()
 
 # Initialize a flag to check if the table is created
@@ -624,7 +637,11 @@ for (row in seq_len(nrow(unique_combinations))) {
   client  <- unique_combinations$Client[row]
   ean     <- unique_combinations$EAN[row]
   
-  cat("Processing Country:", country, "\n", "Client:", client, "\n", "EAN:", ean, "\n")
+  
+  # country <- 'Peru'
+  # client  <- 'Inkafarma'
+  # ean     <- '7509552843620'
+
   cat("Progress: ", i, "/", nrow(unique_combinations), " (", i/nrow(unique_combinations)*100, "%)\n")
   
   # Filter data for the current combination
@@ -710,18 +727,23 @@ Sys.time() - t
 cat("Processing complete. Results saved to the database.\n")
 
 ean_baseline <- dbGetQuery(con, glue("SELECT * FROM ceran.{TABLE_NAME_MODEL_RESULTS}"))
+table(ean_baseline$Client,ean_baseline$Country)
 
 market_df_cat <- market_df %>% 
   ungroup() %>% 
   dplyr::select(Country, Client, Date, EAN, SKU, Sales) %>% 
   unique()
+table(market_df_cat$Client)
 
 baseline <- ean_baseline %>%
+  filter(Client %in% c('Mi Farma','Inkafarma','Inkafarma','Mi Farma','WM-Bodega','WM-Descuento', 'WM-Hipermercado','WM-Supermercado')) %>% 
   left_join(., market_df_cat %>%
               mutate(date = as.Date(Date, format = "%Y-%m-%d")),
             by = c("Date"="Date","Client"="Client","EAN"="EAN","Country"="Country")) %>%
   mutate(
-    year = as.character(year(Date))
+    year = as.character(year(Date)),
+    baseline_no_discount = floor(baseline_no_discount),
+    Sales = floor(Sales)
   ) %>% 
   dplyr::select(date = Date,
                 year,
@@ -729,13 +751,13 @@ baseline <- ean_baseline %>%
                 client = Client,
                 country = Country,
                 ean = EAN,
-                sku = SKU.x,
+                sku = SKU.y,
                 real_units = Units,
                 real_sales = Sales,
                 price = price,
                 discount = Discount,
                 baseline_units = baseline_no_discount) %>%
-  mutate(baseline_sales = round((baseline_units*real_sales/real_units)))
+  mutate(baseline_sales = round((baseline_units*price)))
 
 nrow(baseline)
 
@@ -743,11 +765,15 @@ table(baseline$client)
 
 
 table(market_df$Client)
-omit_combos <- ean_baseline %>% dplyr::select(Country, Client, EAN) %>% unique()
+omit_combos <- baseline %>% dplyr::select(country, client, ean, month, date) %>% unique()
 
 # Filter out those combinations from market_df
 group <- market_df %>%
-  anti_join(omit_combos, by = c("Country", "Client", "EAN"))
+  anti_join(omit_combos, by = c("Country"="country",
+                                "Client"="client",
+                                "EAN"="ean",
+                                "Month"="month",
+                                "Date"="date"))
 
 # Create a complete date sequence
 date_range <- seq(min(group$Date), max(group$Date), by = "day")
@@ -782,7 +808,9 @@ compare_models_no <- compare_models_no_model %>%
               mutate(date = as.Date(Date, format = "%Y-%m-%d")),
             by = c("Date"="Date","Client"="Client","EAN"="EAN","Country"="Country")) %>%
   mutate(
-    year = as.character(year(Date))
+    year = as.character(year(Date)),
+    best_baseline = floor(best_baseline),
+    Sales = floor(Sales.x)
   ) %>% 
   ungroup() %>% 
   dplyr::select(date = Date,
@@ -793,15 +821,15 @@ compare_models_no <- compare_models_no_model %>%
                 ean = EAN,
                 sku = SKU.x,
                 real_units = Units,
-                real_sales = Sales.x,
+                real_sales = Sales,
                 price = price,
                 discount = Discount,
                 baseline_units = best_baseline) %>%
-  mutate(baseline_sales = round((baseline_units*real_sales/real_units)))
+  mutate(baseline_sales = round((baseline_units*price)))
 
 
-dbWriteTable(con, Id(schema = "ceran", table = TABLE_NAME_NO_MODEL_RESULTS), compare_models_no, append = TRUE)
-dbWriteTable(con, Id(schema = "ceran", table = BASELINE), baseline, append = TRUE)
+dbWriteTable(con, Id(schema = "ceran", table = TABLE_NAME_NO_MODEL_RESULTS), compare_models_no, overwrite = TRUE)
+dbWriteTable(con, Id(schema = "ceran", table = BASELINE), baseline, overwrite = TRUE)
 
 base <- baseline %>% 
   dplyr::select(names(compare_models_no)) %>% 
@@ -810,8 +838,8 @@ base <- baseline %>%
 
 table(base$client)
 
-
-dbWriteTable(con, Id(schema = "ceran", table = CONSOLIDATED_BASELINE), base, append = TRUE)
+write.csv(base,"data/-CO- PromoTool CERAN - Base R/Promotool/Baseline R/Baseline R Peru.csv", row.names = F)
+dbWriteTable(con, Id(schema = "ceran", table = CONSOLIDATED_BASELINE), base, overwrite = TRUE)
 
 base <- dbGetQuery(con, glue("SELECT * FROM ceran.{CONSOLIDATED_BASELINE}"))
 
