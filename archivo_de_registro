@@ -560,3 +560,83 @@
 2025-06-12 13:58:25.091 CST [11108] LOG:  checkpoint completo: escritos 447 búfers (2.7%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=49.004 s, sync=0.006 s, total=49.024 s; archivos sincronizados=10, más largo=0.002 s, promedio=0.001 s; distancia=1661 kB, estimación=2277 kB; lsn=2/1EB664B8, lsn de redo=2/1EB292D8
 2025-06-12 14:02:36.103 CST [11108] LOG:  empezando checkpoint: time
 2025-06-12 14:02:44.538 CST [11108] LOG:  checkpoint completo: escritos 78 búfers (0.5%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=8.419 s, sync=0.005 s, total=8.436 s; archivos sincronizados=5, más largo=0.002 s, promedio=0.001 s; distancia=313 kB, estimación=2080 kB; lsn=2/1EB77808, lsn de redo=2/1EB77778
+2025-06-12 14:25:07.054 CST [3264] LOG:  se recibió petición de apagado rápido
+2025-06-12 14:25:07.058 CST [3264] LOG:  abortando transacciones activas
+2025-06-12 14:25:07.064 CST [3108] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-12 14:25:07.081 CST [3264] LOG:  proceso ayudante «logical replication launcher» (PID 3108) terminó con código de salida 1
+2025-06-12 14:25:07.084 CST [11108] LOG:  apagando
+2025-06-12 14:25:07.089 CST [11108] LOG:  empezando checkpoint: shutdown immediate
+2025-06-12 14:25:07.105 CST [11108] LOG:  checkpoint completo: escritos 0 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.001 s, sync=0.001 s, total=0.019 s; archivos sincronizados=0, más largo=0.000 s, promedio=0.000 s; distancia=0 kB, estimación=1872 kB; lsn=2/1EB778B8, lsn de redo=2/1EB778B8
+2025-06-12 14:25:07.141 CST [3264] LOG:  el sistema de bases de datos está apagado
+2025-06-12 14:25:21.876 CST [18936] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-12 14:25:21.893 CST [18936] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-12 14:25:21.894 CST [18936] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-12 14:25:22.151 CST [1684] LOG:  el sistema de bases de datos fue apagado en 2025-06-12 14:25:07 CST
+2025-06-12 14:25:22.277 CST [18936] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-12 14:26:47.194 CST [11756] ERROR:  no existe la relaciÃ³n Â«ceran.baseline_model_results_test_costa_ricaÂ» en carÃ¡cter 15
+2025-06-12 14:26:47.194 CST [11756] SENTENCIA:  SELECT * FROM ceran.baseline_model_results_test_costa_rica
+2025-06-12 14:28:30.431 CST [18936] LOG:  se recibió petición de apagado rápido
+2025-06-12 14:28:30.435 CST [18936] LOG:  abortando transacciones activas
+2025-06-12 14:28:30.437 CST [11756] FATAL:  terminando la conexiÃ³n debido a una orden del administrador
+2025-06-12 14:28:30.585 CST [2384] ERROR:  cancelando la sentencia debido a una peticiÃ³n del usuario
+2025-06-12 14:28:30.585 CST [2384] SENTENCIA:  SELECT year, client, sum(real_units), sum(real_sales)
+	FROM ceran.sell_out WHERE client in ('Mi Farma', 'Inkafarma', 'Inkafarma', 'Mi Farma', 'WM-Bodega', 'WM-Descuento', 'WM-Hipermercado', 'WM-Supermercado') and country in ('Costa Rica') AND date >= '2024-01-01'
+	AND ean = '7899706194273'
+	                            GROUP BY 1,2
+2025-06-12 14:28:30.669 CST [10168] FATAL:  terminando el proceso ayudante Â«parallel workerÂ» debido a una orden del administrador
+2025-06-12 14:28:30.669 CST [10168] SENTENCIA:  SELECT year, client, sum(real_units), sum(real_sales)
+	FROM ceran.sell_out WHERE client in ('Mi Farma', 'Inkafarma', 'Inkafarma', 'Mi Farma', 'WM-Bodega', 'WM-Descuento', 'WM-Hipermercado', 'WM-Supermercado') and country in ('Costa Rica') AND date >= '2024-01-01'
+	AND ean = '7899706194273'
+	                            GROUP BY 1,2
+2025-06-12 14:28:30.707 CST [9096] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-12 14:28:30.714 CST [4432] FATAL:  terminando el proceso ayudante Â«parallel workerÂ» debido a una orden del administrador
+2025-06-12 14:28:30.714 CST [4432] SENTENCIA:  SELECT year, client, sum(real_units), sum(real_sales)
+	FROM ceran.sell_out WHERE client in ('Mi Farma', 'Inkafarma', 'Inkafarma', 'Mi Farma', 'WM-Bodega', 'WM-Descuento', 'WM-Hipermercado', 'WM-Supermercado') and country in ('Costa Rica') AND date >= '2024-01-01'
+	AND ean = '7899706194273'
+	                            GROUP BY 1,2
+2025-06-12 14:28:30.718 CST [18936] LOG:  proceso ayudante «parallel worker» (PID 10168) terminó con código de salida 1
+2025-06-12 14:28:30.781 CST [18936] LOG:  proceso ayudante «parallel worker» (PID 4432) terminó con código de salida 1
+2025-06-12 14:28:30.781 CST [2384] FATAL:  terminando la conexiÃ³n debido a una orden del administrador
+2025-06-12 14:28:30.805 CST [18936] LOG:  proceso ayudante «logical replication launcher» (PID 9096) terminó con código de salida 1
+2025-06-12 14:28:30.841 CST [14712] LOG:  apagando
+2025-06-12 14:28:30.846 CST [14712] LOG:  empezando checkpoint: shutdown immediate
+2025-06-12 14:28:30.905 CST [14712] LOG:  checkpoint completo: escritos 4 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.020 s, sync=0.011 s, total=0.064 s; archivos sincronizados=3, más largo=0.007 s, promedio=0.004 s; distancia=0 kB, estimación=0 kB; lsn=2/1EB77968, lsn de redo=2/1EB77968
+2025-06-12 14:28:30.958 CST [18936] LOG:  el sistema de bases de datos está apagado
+2025-06-12 14:28:46.605 CST [9448] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-12 14:28:46.621 CST [9448] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-12 14:28:46.622 CST [9448] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-12 14:28:46.953 CST [6312] LOG:  el sistema de bases de datos fue apagado en 2025-06-12 14:28:30 CST
+2025-06-12 14:28:47.202 CST [9448] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-12 14:30:05.965 CST [2868] ERROR:  no existe la relaciÃ³n Â«ceran.baseline_model_results_test_costa_ricaÂ» en carÃ¡cter 15
+2025-06-12 14:30:05.965 CST [2868] SENTENCIA:  SELECT * FROM ceran.baseline_model_results_test_costa_rica
+2025-06-12 14:33:46.947 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 14:33:46.978 CST [8652] LOG:  checkpoint completo: escritos 3 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.008 s, sync=0.004 s, total=0.036 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.002 s; distancia=0 kB, estimación=0 kB; lsn=2/1EB77A70, lsn de redo=2/1EB77A18
+2025-06-12 14:38:46.991 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 14:38:57.398 CST [8652] LOG:  checkpoint completo: escritos 96 búfers (0.6%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=10.373 s, sync=0.015 s, total=10.408 s; archivos sincronizados=27, más largo=0.002 s, promedio=0.001 s; distancia=601 kB, estimación=601 kB; lsn=2/1EC2EC08, lsn de redo=2/1EC0E020
+2025-06-12 14:43:46.453 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 14:44:08.129 CST [8652] LOG:  checkpoint completo: escritos 193 búfers (1.2%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=21.634 s, sync=0.007 s, total=21.677 s; archivos sincronizados=8, más largo=0.002 s, promedio=0.001 s; distancia=1376 kB, estimación=1376 kB; lsn=2/1ED9B008, lsn de redo=2/1ED66160
+2025-06-12 14:48:46.160 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 14:49:23.354 CST [8652] LOG:  checkpoint completo: escritos 338 búfers (2.1%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=37.167 s, sync=0.008 s, total=37.194 s; archivos sincronizados=12, más largo=0.002 s, promedio=0.001 s; distancia=1980 kB, estimación=1980 kB; lsn=2/1EF88E18, lsn de redo=2/1EF55190
+2025-06-12 14:53:46.381 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 14:54:13.556 CST [8652] LOG:  checkpoint completo: escritos 248 búfers (1.5%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=27.143 s, sync=0.006 s, total=27.176 s; archivos sincronizados=10, más largo=0.002 s, promedio=0.001 s; distancia=1803 kB, estimación=1962 kB; lsn=2/1F156F78, lsn de redo=2/1F118040
+2025-06-12 14:58:46.570 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 14:59:26.030 CST [8652] LOG:  checkpoint completo: escritos 360 búfers (2.2%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=39.438 s, sync=0.009 s, total=39.461 s; archivos sincronizados=13, más largo=0.002 s, promedio=0.001 s; distancia=1856 kB, estimación=1951 kB; lsn=2/1F3159C0, lsn de redo=2/1F2E8090
+2025-06-12 15:03:46.060 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 15:04:28.417 CST [8652] LOG:  checkpoint completo: escritos 379 búfers (2.3%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=42.306 s, sync=0.032 s, total=42.357 s; archivos sincronizados=13, más largo=0.025 s, promedio=0.003 s; distancia=1814 kB, estimación=1938 kB; lsn=2/1F4D9110, lsn de redo=2/1F4AD8B0
+2025-06-12 15:08:46.471 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 15:09:15.132 CST [8652] LOG:  checkpoint completo: escritos 262 búfers (1.6%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=28.636 s, sync=0.008 s, total=28.662 s; archivos sincronizados=11, más largo=0.002 s, promedio=0.001 s; distancia=1574 kB, estimación=1901 kB; lsn=2/1F68B748, lsn de redo=2/1F637278
+2025-06-12 15:13:46.157 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 15:14:17.448 CST [8652] LOG:  checkpoint completo: escritos 285 búfers (1.7%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=31.269 s, sync=0.007 s, total=31.292 s; archivos sincronizados=12, más largo=0.002 s, promedio=0.001 s; distancia=1674 kB, estimación=1878 kB; lsn=2/1F8027D8, lsn de redo=2/1F7D9A88
+2025-06-12 15:18:46.472 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 15:19:33.167 CST [8652] LOG:  checkpoint completo: escritos 425 búfers (2.6%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=46.670 s, sync=0.008 s, total=46.695 s; archivos sincronizados=11, más largo=0.002 s, promedio=0.001 s; distancia=1633 kB, estimación=1854 kB; lsn=2/1F99EA38, lsn de redo=2/1F972130
+2025-06-12 15:23:46.202 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 15:24:18.760 CST [8652] LOG:  checkpoint completo: escritos 297 búfers (1.8%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=32.536 s, sync=0.007 s, total=32.558 s; archivos sincronizados=11, más largo=0.002 s, promedio=0.001 s; distancia=1557 kB, estimación=1824 kB; lsn=2/1FB14478, lsn de redo=2/1FAF7870
+2025-06-12 15:28:46.776 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 15:29:39.783 CST [8652] LOG:  checkpoint completo: escritos 484 búfers (3.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=52.981 s, sync=0.008 s, total=53.007 s; archivos sincronizados=12, más largo=0.002 s, promedio=0.001 s; distancia=1525 kB, estimación=1794 kB; lsn=2/1FCAD6D0, lsn de redo=2/1FC74E28
+2025-06-12 15:33:46.797 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 15:33:59.117 CST [8652] LOG:  checkpoint completo: escritos 113 búfers (0.7%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=12.299 s, sync=0.003 s, total=12.320 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.001 s; distancia=797 kB, estimación=1695 kB; lsn=2/1FD4C2D8, lsn de redo=2/1FD3C490
+2025-06-12 15:38:46.125 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 15:39:20.868 CST [8652] LOG:  checkpoint completo: escritos 316 búfers (1.9%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=34.719 s, sync=0.007 s, total=34.744 s; archivos sincronizados=10, más largo=0.002 s, promedio=0.001 s; distancia=1206 kB, estimación=1646 kB; lsn=2/1FE87EA0, lsn de redo=2/1FE6A080
+2025-06-12 15:43:46.881 CST [8652] LOG:  empezando checkpoint: time
+2025-06-12 15:43:54.694 CST [8652] LOG:  checkpoint completo: escritos 73 búfers (0.4%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=7.798 s, sync=0.003 s, total=7.814 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.001 s; distancia=501 kB, estimación=1531 kB; lsn=2/1FEE78D0, lsn de redo=2/1FEE7878
+2025-06-12 15:58:46.739 CST [8652] LOG:  empezando checkpoint: time

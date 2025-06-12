@@ -622,7 +622,6 @@ get_best_baseline = function(group) {
 unique_combinations <- market_df %>%
   ungroup() %>% 
   dplyr::select(Country, Client, EAN) %>% 
-  filter(Country == 'Peru') %>% 
   unique()
 
 # Initialize a flag to check if the table is created
@@ -837,7 +836,7 @@ base <- baseline %>%
 
 table(base$client)
 
-write.csv(base,"data/-CO- PromoTool CERAN - Base R/Promotool/Baseline R/Baseline R Peru.csv", row.names = F)
+#write.csv(base,"data/-CO- PromoTool CERAN - Base R/Promotool/Baseline R/Baseline R Peru.csv", row.names = F)
 dbWriteTable(con, Id(schema = "ceran", table = CONSOLIDATED_BASELINE), base, overwrite = TRUE)
 
 base <- dbGetQuery(con, glue("SELECT * FROM ceran.{CONSOLIDATED_BASELINE}"))

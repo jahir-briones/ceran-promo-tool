@@ -15,14 +15,14 @@ gc()
 
 
 filters = list('client' = c('Mi Farma','Inkafarma','Inkafarma','Mi Farma','WM-Bodega','WM-Descuento', 'WM-Hipermercado','WM-Supermercado')
-               ,'country' = c('Peru')
+               ,'country' = c('Costa Rica')
                )
 
-condition_write_table <- F # IF FALSE THEN WRITE NEW TABLE
-TABLE_NAME_MODEL_RESULTS <- "baseline_model_results_test_peru"
-TABLE_NAME_NO_MODEL_RESULTS <- "baseline_no_model_results_test_peru"
-BASELINE <- "baseline_test1_peru"
-CONSOLIDATED_BASELINE <- "consolidated_baseline_test_peru"
+condition_write_table <- FALSE # IF FALSE THEN WRITE NEW TABLE
+TABLE_NAME_MODEL_RESULTS <- "baseline_model_results_test_costa_rica"
+TABLE_NAME_NO_MODEL_RESULTS <- "baseline_no_model_results_test_costa_rica"
+BASELINE <- "baseline_test1_costa_rica"
+CONSOLIDATED_BASELINE <- "consolidated_baseline_test_costa_rica"
 
 source("src/model/baseline model.R", encoding = 'utf8')
 #source("code/consolida tablas.R")  
