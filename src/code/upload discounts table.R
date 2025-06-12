@@ -9,7 +9,7 @@ df0 <- df0 %>%
 df1 <- read_xlsx("data/Colombia/Descuento/Descuentos Alkosto.xlsx", sheet = "Hoja1")
 df1 <- df1 %>% 
   mutate(Fecha = format(as.Date(Fecha, format="%Y-%m-%d")))
-df2 <- read_xlsx("data/Colombia/Descuento/Descuentos Éxito.xlsx", sheet = "Hoja1")
+df2 <- read_xlsx("data/Colombia/Descuento/Descuentos Exito.xlsx", sheet = "Hoja1")
 df2 <- df2 %>% 
   mutate(Fecha = format(as.Date(Fecha, format="%Y-%m-%d")))
 df3 <- read_xlsx("data/Colombia/Descuento/Descuentos Inkafarma.xlsx", sheet = "Hoja1")
