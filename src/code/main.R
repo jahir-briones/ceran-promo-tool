@@ -1,5 +1,3 @@
-
-
 system('pg_ctl -D "C:/Users/jahir.briones/AppData/Roaming/pgsql/RGM" -l archivo_de_registro start')
 
 source("src/code/upload Maestra.R", encoding = 'utf8')
@@ -14,15 +12,18 @@ rm(list = ls())
 gc()
 
 
-filters = list('client' = c('Mi Farma','Inkafarma','Inkafarma','Mi Farma','WM-Bodega','WM-Descuento', 'WM-Hipermercado','WM-Supermercado')
-               ,'country' = c('Costa Rica')
+filters = list('client' = c('Mi Farma','Inkafarma','Inkafarma',
+                            'Mi Farma','WM-Bodega','WM-Descuento',
+                            'Farmatodo','WM-Hipermercado','WM-Supermercado'
+                            )
+               #,'country' = c('Colombia','')
                )
 
 condition_write_table <- FALSE # IF FALSE THEN WRITE NEW TABLE
-TABLE_NAME_MODEL_RESULTS <- "baseline_model_results_test_costa_rica"
-TABLE_NAME_NO_MODEL_RESULTS <- "baseline_no_model_results_test_costa_rica"
-BASELINE <- "baseline_test1_costa_rica"
-CONSOLIDATED_BASELINE <- "consolidated_baseline_test_costa_rica"
+TABLE_NAME_MODEL_RESULTS <- "baseline_model_results"
+TABLE_NAME_NO_MODEL_RESULTS <- "baseline_no_model_results"
+BASELINE <- "baseline"
+CONSOLIDATED_BASELINE <- "consolidated_baseline"
 
 source("src/model/baseline model.R", encoding = 'utf8')
 #source("code/consolida tablas.R")  

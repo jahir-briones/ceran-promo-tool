@@ -20,7 +20,7 @@ decrypted_password <- rawToChar(aes_cbc_decrypt(encrypted_password, key = key, i
 con <- dbConnect(
   RPostgres::Postgres(),
   dbname = "promotool",
-  host = "127.0.0.1",
+  host = "localhost",
   port = 5432,  # Default PostgreSQL port
   user = "postgres",
   password = decrypted_password
