@@ -55,11 +55,14 @@ df15 <- read_xlsx("data/Colombia/Ventas/Ventas Farmatodo 2.0.xlsx", sheet = "Bas
 df15 <- df15 %>% 
   mutate(Fecha = format(as.Date(Fecha, format="%Y-%m-%d")))
 
+df16 <- read_xlsx("data/Colombia/Ventas/Ventas Panama.xlsx", sheet = "Base")
+df16 <- df16 %>% 
+  mutate(Fecha = format(as.Date(Fecha, format="%Y-%m-%d")))
 
 
-df <- rbind(df0,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15)
+df <- rbind(df0,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15, df16)
 
-rm(df0,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15)
+rm(df0,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10,df11,df12,df13,df14,df15,df16)
 
 names(df)
 # [1] "Fecha"           "Año"             "Mes"             "Cadena"          "Pais"            "EAN"             "Descripción"     "Unidades Reales"

@@ -18,7 +18,7 @@ library(glue)
 source("lib/con_pg.R")
 
 # Fetch discounts data
-parts <- paste(sapply(names(filters), function(nm) sprintf("%s in ({%s*})", nm, nm)), collapse = " and ")
+parts <- paste(sapply(names(filters), function(nm) sprintf("%s in ({%s*})", nm, nm)), collapse = " OR ")
 
 query <- glue_data_sql(filters, paste("SELECT * FROM ceran.discounts where", 
                                       parts,"AND date >= '2024-01-01'"), .con = con)
@@ -30,18 +30,10 @@ discounts <- dbGetQuery(con, query)
 #                         client IN('Mi Farma')--,'Farmatodo', 'Inkafarma','Mi Farma')
 #                         ")
 
-table(discounts$client)
-
-query <- glue_data_sql(filters, paste("SELECT year, client, sum(real_units), sum(real_sales)
-          FROM ceran.sell_out WHERE", parts, "AND date >= '2024-01-01'
-          AND ean = '7899706194273'
-                                      GROUP BY 1,2"), .con = con)
-
-dbGetQuery(con, query)
-
 
 query <- glue_data_sql(filters, paste("SELECT DISTINCT
-          date, year, month, client, country, ean, sku, real_units, real_sales
+          date, year, month, client, 
+          country, ean, sku, real_units, real_sales
           FROM ceran.sell_out WHERE", parts, "AND date >= '2024-01-01'"), .con = con)
 
 # Fetch sell out data
@@ -55,7 +47,7 @@ sell_out <- dbGetQuery(con, query)
 #                         --OR 
 #                         client IN('Mi Farma')--,'Farmatodo', 'Inkafarma','Mi Farma')
 #                        ")
-
+table(sell_out$client)
 
 discounts2 <- discounts %>% 
   dplyr::select(date,client, country, ean, promo_type, promo_name, discount_pct) %>% 
@@ -91,9 +83,6 @@ names(market) <- c("Date","Client","Country","EAN","SKU","Units","Sales", "price
 
 #rasterOptions(todisk = F)
 market_df <- market %>%
-  filter(Client %in% c('Inkafarma','Mi Farma','WM-Bodega','WM-Descuento', 'WM-Hipermercado','WM-Supermercado'),
-         Country %in% c('Costa Rica','Peru'),
-         Date >= '2024-01-01') %>% 
   mutate(Date = as.Date(Date, format = "%Y-%m-%d"),
          EAN = as.character(EAN)) %>%
   mutate_if(is.numeric, ~replace(., is.na(.), 0)) %>% 
@@ -523,7 +512,7 @@ BaselineModel <- R6::R6Class(
       compare_models <- left_join(compare_models, merged_data, by = c("Country", "Client", "EAN", "Date"))
       compare_models <- compare_models %>% 
         filter(is.na(Units) == F)
-
+      
       return(list(compare_models, merged_data))
     },
     
@@ -640,7 +629,7 @@ for (row in seq_len(nrow(unique_combinations))) {
   # country <- 'Peru'
   # client  <- 'Inkafarma'
   # ean     <- '7509552843620'
-
+  cat("Country: ", country, "\n", "Client: ", client, "\n")
   cat("Progress: ", i, "/", nrow(unique_combinations), " (", i/nrow(unique_combinations)*100, "%)\n")
   
   # Filter data for the current combination
@@ -726,7 +715,7 @@ Sys.time() - t
 cat("Processing complete. Results saved to the database.\n")
 
 ean_baseline <- dbGetQuery(con, glue("SELECT * FROM ceran.{TABLE_NAME_MODEL_RESULTS}"))
-table(ean_baseline$Client,ean_baseline$Country)
+table(ean_baseline$Client,ean_baseline$best_model)
 
 market_df_cat <- market_df %>% 
   ungroup() %>% 
@@ -735,7 +724,7 @@ market_df_cat <- market_df %>%
 table(market_df_cat$Client)
 
 baseline <- ean_baseline %>%
-  filter(Client %in% c('Mi Farma','Inkafarma','Inkafarma','Mi Farma','WM-Bodega','WM-Descuento', 'WM-Hipermercado','WM-Supermercado')) %>% 
+  #filter(Client %in% c('Mi Farma','Inkafarma','Farmatodo','Inkafarma','Mi Farma','WM-Bodega','WM-Descuento', 'WM-Hipermercado','WM-Supermercado')) %>% 
   left_join(., market_df_cat %>%
               mutate(date = as.Date(Date, format = "%Y-%m-%d")),
             by = c("Date"="Date","Client"="Client","EAN"="EAN","Country"="Country")) %>%
@@ -832,11 +821,12 @@ dbWriteTable(con, Id(schema = "ceran", table = BASELINE), baseline, overwrite = 
 base <- baseline %>% 
   dplyr::select(names(compare_models_no)) %>% 
   rbind(compare_models_no) %>% 
-  filter(baseline_units > 0)
+  filter(baseline_units > 0,
+         country != 'Panama')
 
-table(base$client)
+table(base$country)
 
-#write.csv(base,"data/-CO- PromoTool CERAN - Base R/Promotool/Baseline R/Baseline R.csv", row.names = F)
+write.csv(base,"data/-CO- PromoTool CERAN - Base R/Promotool/Baseline R/Baseline R full.csv", row.names = F)
 dbWriteTable(con, Id(schema = "ceran", table = CONSOLIDATED_BASELINE), base, overwrite = TRUE)
 
 base <- dbGetQuery(con, glue("SELECT * FROM ceran.{CONSOLIDATED_BASELINE}"))

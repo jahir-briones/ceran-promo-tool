@@ -59,13 +59,16 @@ df17 <- read_xlsx("data/Colombia/Descuento/Descuentos FarmT.xlsx", sheet = "Hoja
 df17 <- df17 %>% 
   mutate(Fecha = format(as.Date(Fecha, format="%Y-%m-%d")))
 
+df18 <- read_xlsx("data/Colombia/Descuento/Descuentos Panama.xlsx", sheet = "Hoja1")
+df18 <- df18 %>% 
+  mutate(Fecha = format(as.Date(Fecha, format="%Y-%m-%d")))
 
 
 df <- rbind(df0,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10#,df11
-            ,df12,df13,df14,df15,df16,df17)
+            ,df12,df13,df14,df15,df16,df17,df18)
 
 rm(df0,df1,df2,df3,df4,df5,df6,df7,df8,df9,df10#,df11
-   ,df12,df13,df14,df15,df16,df17)
+   ,df12,df13,df14,df15,df16,df17,df18)
 
 
 names(df)

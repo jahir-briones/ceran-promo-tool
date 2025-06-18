@@ -10,7 +10,7 @@ DF <- dbGetQuery(con, "SELECT * FROM ceran.baseline_model_results
          \"Client\" = 'Mi Farma'") #THE TEST VALUES
 
 #ean_baseline <- dbGetQuery(con, 'SELECT * FROM ceran.baseline') THE OK VALUES
-baseline <- dbGetQuery(con, 'SELECT * FROM ceran.baseline_model_results_test_peru') #THE TEST VALUES
+baseline <- dbGetQuery(con, 'SELECT * FROM ceran.baseline_model_results') #THE TEST VALUES
 table(baseline$Client, baseline$Country)
 # ean_baseline_no <- dbGetQuery(con, 'SELECT * FROM ceran.baseline_no_model_results')
 # baseline_old <- dbGetQuery(con, "SELECT * FROM ceran.baseline_old
@@ -24,9 +24,9 @@ table(baseline$Client, baseline$Country)
 # Example group for visualization 
 #'7509552792287',7509552455557','3600524057336','6923700977561','3600542081160','7509552845884','7509552849516'
 example_group <- baseline %>%
-  filter(EAN == '7509552843620',
-         Client %in% c('Mi Farma','Inkafarma')
-         ,Discount > 0# 7899706130899, 7509552455557 , 7509552792287, 7509552849516
+  filter(#EAN == '7509552843620',
+         #Client %in% c('Mi Farma','Inkafarma')
+         Discount > 0# 7899706130899, 7509552455557 , 7509552792287, 7509552849516
          ) 
 
 merged_data_for_viz <- example_group
@@ -47,6 +47,12 @@ merged_data_for_viz <- merged_data_for_viz %>%
   ) 
   #left_join(baseline_old, by = c("date","ean"))
 
+library(GGally)
+
+ggpairs(example_group,
+        columns = c('Baseline_LR', 'Baseline_DT','Baseline_XGB','Baseline_RF'),      
+        aes(color = Country,  
+            alpha = 0.2))   
 
 # Visualization using ggplot2
 ggplot(merged_data_for_viz, aes(x = date)) +
