@@ -56,7 +56,7 @@ discounts2 <- discounts %>%
   unique()
 
 sell_out <- sell_out %>% 
-  filter(real_units > 0) %>% 
+  filter(real_units > 0, country != 'Panama') %>% 
   dplyr::select(date, client, country, ean, sku, real_units, real_sales
                 #, real_sales
   ) %>% 
@@ -572,6 +572,7 @@ BaselineModel <- R6::R6Class(
   )
 )
 
+
 #######################################################################
 
 
@@ -613,11 +614,14 @@ unique_combinations <- market_df %>%
   dplyr::select(Country, Client, EAN) %>% 
   unique()
 
+table(unique_combinations$Client, unique_combinations$Country)
 # Initialize a flag to check if the table is created
 table_created <- condition_write_table
 
 t <- Sys.time()
 i <- 1
+system('pg_ctl -D "C:/Users/jahir.briones/AppData/Roaming/pgsql/RGM" -l archivo_de_registro start')
+source("lib/con_pg.R")
 
 # Loop through each unique combination
 for (row in seq_len(nrow(unique_combinations))) {
@@ -635,6 +639,13 @@ for (row in seq_len(nrow(unique_combinations))) {
   # Filter data for the current combination
   combo_data <- market_df %>%
     filter(Country == country, Client == client, EAN == ean)
+  
+  # Repeat data for Panama until nrow > 180
+  if (country == "Panama") {
+    while (nrow(combo_data) > 0 && nrow(combo_data) < 300) {
+      combo_data <- rbind(combo_data, combo_data)
+    }
+  }
   
   if (nrow(combo_data) > 180) {
     # Initialize the BaselineModel for the current combination
@@ -713,6 +724,10 @@ for (row in seq_len(nrow(unique_combinations))) {
 Sys.time() - t
 
 cat("Processing complete. Results saved to the database.\n")
+# DBI::dbExecute(con, "
+#   DELETE FROM ceran.baseline_model_results
+#   WHERE \"Client\" IN ('Metro', 'Plaza Vea');
+# ")
 
 ean_baseline <- dbGetQuery(con, glue("SELECT * FROM ceran.{TABLE_NAME_MODEL_RESULTS}"))
 table(ean_baseline$Client,ean_baseline$best_model)
@@ -721,10 +736,10 @@ market_df_cat <- market_df %>%
   ungroup() %>% 
   dplyr::select(Country, Client, Date, EAN, SKU, Sales) %>% 
   unique()
-table(market_df_cat$Client)
+table(market_df_cat$Client, market_df_cat$Country)
 
 baseline <- ean_baseline %>%
-  #filter(Client %in% c('Mi Farma','Inkafarma','Farmatodo','Inkafarma','Mi Farma','WM-Bodega','WM-Descuento', 'WM-Hipermercado','WM-Supermercado')) %>% 
+  #filter(Client %in% c('Exito','Kioskos')) %>% 
   left_join(., market_df_cat %>%
               mutate(date = as.Date(Date, format = "%Y-%m-%d")),
             by = c("Date"="Date","Client"="Client","EAN"="EAN","Country"="Country")) %>%
@@ -824,7 +839,7 @@ base <- baseline %>%
   filter(baseline_units > 0,
          country != 'Panama')
 
-table(base$country)
+table(base$client,base$country)
 
 write.csv(base,"data/-CO- PromoTool CERAN - Base R/Promotool/Baseline R/Baseline R full.csv", row.names = F)
 dbWriteTable(con, Id(schema = "ceran", table = CONSOLIDATED_BASELINE), base, overwrite = TRUE)

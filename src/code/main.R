@@ -12,16 +12,16 @@ rm(list = ls())
 gc()
 
 
-filters = list(#'client' = c('Mi Farma','Inkafarma','Inkafarma','Mi Farma','WM-Bodega','WM-Descuento','Farmatodo','WM-Hipermercado','WM-Supermercado')
-               #,
-               'country' = c('Panama')
+filters = list('client' = c('Mi Farma','Inkafarma','Inkafarma','Mi Farma','WM-Bodega','WM-Descuento','Farmatodo','WM-Hipermercado','WM-Supermercado'
+                           ,'Wong','Novaventa', 'Exito', 'Kioskos', 'Metro','Plaza Vea','Novaventa/Door to door')
+               #'country' = c('Panama')
                )
 
-condition_write_table <- FALSE # IF FALSE THEN WRITE NEW TABLE
-TABLE_NAME_MODEL_RESULTS <- "baseline_model_results_panama"
-TABLE_NAME_NO_MODEL_RESULTS <- "baseline_no_model_results_panama"
-BASELINE <- "baseline_panama"
-CONSOLIDATED_BASELINE <- "consolidated_baseline_panama"
+condition_write_table <- TRUE # IF FALSE THEN WRITE NEW TABLE
+TABLE_NAME_MODEL_RESULTS <- "baseline_model_results"
+TABLE_NAME_NO_MODEL_RESULTS <- "baseline_no_model_results"
+BASELINE <- "baseline"
+CONSOLIDATED_BASELINE <- "consolidated_baseline"
 
 source("src/model/baseline model.R", encoding = 'utf8')
 #source("code/consolida tablas.R")  

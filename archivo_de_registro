@@ -941,3 +941,263 @@
 2025-06-18 11:43:19.107 CST [7228] LOG:  empezando checkpoint: end-of-recovery immediate wait
 2025-06-18 11:43:19.129 CST [7228] LOG:  checkpoint completo: escritos 3 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.007 s, sync=0.004 s, total=0.028 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.002 s; distancia=0 kB, estimación=0 kB; lsn=0/891DB128, lsn de redo=0/891DB128
 2025-06-18 11:43:19.178 CST [22084] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-19 12:44:29.512 CST [7228] LOG:  empezando checkpoint: time
+2025-06-19 12:44:34.387 CST [7228] LOG:  checkpoint completo: escritos 47 búfers (0.3%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=4.845 s, sync=0.013 s, total=4.876 s; archivos sincronizados=22, más largo=0.002 s, promedio=0.001 s; distancia=253 kB, estimación=253 kB; lsn=0/89238F88, lsn de redo=0/8921A840
+2025-06-19 12:45:30.752 CST [22084] LOG:  se recibió petición de apagado rápido
+2025-06-19 12:45:30.757 CST [22084] LOG:  abortando transacciones activas
+2025-06-19 12:45:30.758 CST [16452] FATAL:  terminando la conexiÃ³n debido a una orden del administrador
+2025-06-19 12:45:30.758 CST [21336] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-19 12:45:30.770 CST [22084] LOG:  proceso ayudante «logical replication launcher» (PID 21336) terminó con código de salida 1
+2025-06-19 12:45:30.777 CST [7228] LOG:  apagando
+2025-06-19 12:45:30.779 CST [7228] LOG:  empezando checkpoint: shutdown immediate
+2025-06-19 12:45:30.820 CST [7228] LOG:  checkpoint completo: escritos 192 búfers (1.2%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.015 s, sync=0.011 s, total=0.043 s; archivos sincronizados=9, más largo=0.003 s, promedio=0.002 s; distancia=1242 kB, estimación=1242 kB; lsn=0/89351088, lsn de redo=0/89351088
+2025-06-19 12:45:30.854 CST [22084] LOG:  el sistema de bases de datos está apagado
+2025-06-19 12:47:41.345 CST [6252] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-19 12:47:41.354 CST [6252] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-19 12:47:41.354 CST [6252] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-19 12:47:41.464 CST [24844] LOG:  el sistema de bases de datos fue apagado en 2025-06-19 12:45:30 CST
+2025-06-19 12:47:41.521 CST [6252] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-19 12:48:12.143 CST [6252] LOG:  se recibió petición de apagado rápido
+2025-06-19 12:48:12.146 CST [6252] LOG:  abortando transacciones activas
+2025-06-19 12:48:12.146 CST [21948] FATAL:  terminando la conexiÃ³n debido a una orden del administrador
+2025-06-19 12:48:12.148 CST [4940] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-19 12:48:12.155 CST [6252] LOG:  proceso ayudante «logical replication launcher» (PID 4940) terminó con código de salida 1
+2025-06-19 12:48:12.164 CST [28028] LOG:  apagando
+2025-06-19 12:48:12.167 CST [28028] LOG:  empezando checkpoint: shutdown immediate
+2025-06-19 12:48:12.231 CST [28028] LOG:  checkpoint completo: escritos 97 búfers (0.6%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.024 s, sync=0.021 s, total=0.068 s; archivos sincronizados=24, más largo=0.002 s, promedio=0.001 s; distancia=622 kB, estimación=622 kB; lsn=0/893ECAB0, lsn de redo=0/893ECAB0
+2025-06-19 12:48:12.263 CST [6252] LOG:  el sistema de bases de datos está apagado
+2025-06-19 12:49:03.542 CST [20512] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-19 12:49:03.552 CST [20512] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-19 12:49:03.552 CST [20512] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-19 12:49:03.662 CST [25876] LOG:  el sistema de bases de datos fue apagado en 2025-06-19 12:48:12 CST
+2025-06-19 12:49:03.720 CST [20512] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-19 12:49:24.331 CST [20512] LOG:  se recibió petición de apagado rápido
+2025-06-19 12:49:24.334 CST [20512] LOG:  abortando transacciones activas
+2025-06-19 12:49:24.334 CST [11280] FATAL:  terminando la conexiÃ³n debido a una orden del administrador
+2025-06-19 12:49:24.335 CST [27292] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-19 12:49:24.343 CST [20512] LOG:  proceso ayudante «logical replication launcher» (PID 27292) terminó con código de salida 1
+2025-06-19 12:49:24.353 CST [21244] LOG:  apagando
+2025-06-19 12:49:24.355 CST [21244] LOG:  empezando checkpoint: shutdown immediate
+2025-06-19 12:49:24.424 CST [21244] LOG:  checkpoint completo: escritos 31 búfers (0.2%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.009 s, sync=0.038 s, total=0.072 s; archivos sincronizados=21, más largo=0.023 s, promedio=0.002 s; distancia=180 kB, estimación=180 kB; lsn=0/89419E00, lsn de redo=0/89419E00
+2025-06-19 12:49:24.462 CST [20512] LOG:  el sistema de bases de datos está apagado
+2025-06-19 13:12:30.598 CST [16028] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-19 13:12:30.609 CST [16028] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-19 13:12:30.609 CST [16028] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-19 13:12:30.716 CST [9312] LOG:  el sistema de bases de datos fue apagado en 2025-06-19 12:49:24 CST
+2025-06-19 13:12:30.781 CST [16028] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-19 13:12:41.204 CST [16028] LOG:  se recibió petición de apagado rápido
+2025-06-19 13:12:41.207 CST [16028] LOG:  abortando transacciones activas
+2025-06-19 13:12:41.207 CST [9588] FATAL:  terminando la conexiÃ³n debido a una orden del administrador
+2025-06-19 13:12:41.209 CST [17280] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-19 13:12:41.216 CST [16028] LOG:  proceso ayudante «logical replication launcher» (PID 17280) terminó con código de salida 1
+2025-06-19 13:12:41.229 CST [17936] LOG:  apagando
+2025-06-19 13:12:41.232 CST [17936] LOG:  empezando checkpoint: shutdown immediate
+2025-06-19 13:12:41.309 CST [17936] LOG:  checkpoint completo: escritos 53 búfers (0.3%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.032 s, sync=0.025 s, total=0.080 s; archivos sincronizados=23, más largo=0.004 s, promedio=0.002 s; distancia=313 kB, estimación=313 kB; lsn=0/894683B0, lsn de redo=0/894683B0
+2025-06-19 13:12:41.348 CST [16028] LOG:  el sistema de bases de datos está apagado
+2025-06-19 13:13:10.069 CST [26064] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-19 13:13:10.078 CST [26064] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-19 13:13:10.078 CST [26064] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-19 13:13:10.170 CST [25944] LOG:  el sistema de bases de datos fue apagado en 2025-06-19 13:12:41 CST
+2025-06-19 13:13:10.213 CST [26064] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-19 13:13:25.039 CST [26064] LOG:  se recibió petición de apagado rápido
+2025-06-19 13:13:25.042 CST [26064] LOG:  abortando transacciones activas
+2025-06-19 13:13:25.043 CST [25176] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-19 13:13:25.046 CST [8472] FATAL:  terminando la conexiÃ³n debido a una orden del administrador
+2025-06-19 13:13:25.050 CST [26064] LOG:  proceso ayudante «logical replication launcher» (PID 25176) terminó con código de salida 1
+2025-06-19 13:13:25.062 CST [22556] LOG:  apagando
+2025-06-19 13:13:25.064 CST [22556] LOG:  empezando checkpoint: shutdown immediate
+2025-06-19 13:13:25.085 CST [22556] LOG:  checkpoint completo: escritos 31 búfers (0.2%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.006 s, sync=0.005 s, total=0.023 s; archivos sincronizados=5, más largo=0.002 s, promedio=0.001 s; distancia=175 kB, estimación=175 kB; lsn=0/89494088, lsn de redo=0/89494088
+2025-06-19 13:13:25.103 CST [26064] LOG:  el sistema de bases de datos está apagado
+2025-06-24 12:07:33.166 CST [25408] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-24 12:07:33.178 CST [25408] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-24 12:07:33.178 CST [25408] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-24 12:07:33.317 CST [24172] LOG:  el sistema de bases de datos fue apagado en 2025-06-19 13:13:25 CST
+2025-06-24 12:07:33.387 CST [25408] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-24 12:11:20.883 CST [25408] LOG:  se recibió petición de apagado rápido
+2025-06-24 12:11:20.885 CST [25408] LOG:  abortando transacciones activas
+2025-06-24 12:11:20.888 CST [28408] FATAL:  terminando la conexiÃ³n debido a una orden del administrador
+2025-06-24 12:11:20.888 CST [26368] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-24 12:11:20.894 CST [25408] LOG:  proceso ayudante «logical replication launcher» (PID 26368) terminó con código de salida 1
+2025-06-24 12:11:20.898 CST [28164] LOG:  apagando
+2025-06-24 12:11:20.899 CST [28164] LOG:  empezando checkpoint: shutdown immediate
+2025-06-24 12:11:20.926 CST [28164] LOG:  checkpoint completo: escritos 65 búfers (0.4%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.007 s, sync=0.008 s, total=0.028 s; archivos sincronizados=9, más largo=0.002 s, promedio=0.001 s; distancia=72 kB, estimación=72 kB; lsn=0/894A6388, lsn de redo=0/894A6388
+2025-06-24 12:11:20.945 CST [25408] LOG:  el sistema de bases de datos está apagado
+2025-06-24 12:11:32.557 CST [32176] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-24 12:11:32.566 CST [32176] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-24 12:11:32.567 CST [32176] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-24 12:11:32.667 CST [4068] LOG:  el sistema de bases de datos fue apagado en 2025-06-24 12:11:20 CST
+2025-06-24 12:11:32.726 CST [32176] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-24 12:16:32.645 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 12:20:13.614 CST [27556] LOG:  checkpoint completo: escritos 2031 búfers (12.4%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=220.921 s, sync=0.009 s, total=220.972 s; archivos sincronizados=5, más largo=0.003 s, promedio=0.002 s; distancia=16053 kB, estimación=16053 kB; lsn=0/8A5E9660, lsn de redo=0/8A453810
+2025-06-24 12:21:32.628 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 12:58:22.388 CST [27556] LOG:  checkpoint completo: escritos 314 búfers (1.9%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=2209.738 s, sync=0.005 s, total=2209.760 s; archivos sincronizados=3, más largo=0.003 s, promedio=0.002 s; distancia=2282 kB, estimación=14676 kB; lsn=0/8A6D54C0, lsn de redo=0/8A68E1D0
+2025-06-24 13:16:56.307 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 13:18:20.292 CST [27556] LOG:  checkpoint completo: escritos 774 búfers (4.7%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=83.966 s, sync=0.005 s, total=83.985 s; archivos sincronizados=4, más largo=0.002 s, promedio=0.002 s; distancia=5937 kB, estimación=13802 kB; lsn=0/8AD24528, lsn de redo=0/8AC5A978
+2025-06-24 13:21:56.275 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 13:22:46.493 CST [27556] LOG:  checkpoint completo: escritos 464 búfers (2.8%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=50.197 s, sync=0.005 s, total=50.218 s; archivos sincronizados=4, más largo=0.002 s, promedio=0.002 s; distancia=3380 kB, estimación=12760 kB; lsn=0/8B051CB0, lsn de redo=0/8AFA7BA8
+2025-06-24 14:13:53.175 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 14:18:23.039 CST [27556] LOG:  checkpoint completo: escritos 3871 búfers (23.6%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=269.827 s, sync=0.008 s, total=269.864 s; archivos sincronizados=10, más largo=0.002 s, promedio=0.001 s; distancia=2863 kB, estimación=11770 kB; lsn=0/8B4E18A8, lsn de redo=0/8B2739A8
+2025-06-24 14:18:53.048 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 14:19:32.837 CST [27556] LOG:  checkpoint completo: escritos 373 búfers (2.3%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=39.768 s, sync=0.005 s, total=39.790 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.002 s; distancia=2710 kB, estimación=10864 kB; lsn=0/8B57ABA8, lsn de redo=0/8B5193C0
+2025-06-24 14:23:53.831 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 14:24:34.783 CST [27556] LOG:  checkpoint completo: escritos 385 búfers (2.3%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=40.935 s, sync=0.005 s, total=40.952 s; archivos sincronizados=3, más largo=0.003 s, promedio=0.002 s; distancia=2805 kB, estimación=10058 kB; lsn=0/8B834488, lsn de redo=0/8B7D67F8
+2025-06-24 14:28:53.778 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 14:29:35.924 CST [27556] LOG:  checkpoint completo: escritos 394 búfers (2.4%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=42.127 s, sync=0.005 s, total=42.146 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.002 s; distancia=2854 kB, estimación=9338 kB; lsn=0/8BB16700, lsn de redo=0/8BAA00B0
+2025-06-24 14:33:53.981 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 14:34:40.675 CST [27556] LOG:  checkpoint completo: escritos 432 búfers (2.6%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=46.675 s, sync=0.006 s, total=46.695 s; archivos sincronizados=4, más largo=0.002 s, promedio=0.002 s; distancia=3143 kB, estimación=8718 kB; lsn=0/8BE600F8, lsn de redo=0/8BDB1EB8
+2025-06-24 14:38:53.708 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 14:54:43.077 CST [27556] LOG:  checkpoint completo: escritos 2311 búfers (14.1%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=949.330 s, sync=0.012 s, total=949.370 s; archivos sincronizados=10, más largo=0.006 s, promedio=0.002 s; distancia=3616 kB, estimación=8208 kB; lsn=0/8C3BA598, lsn de redo=0/8C13A1B0
+2025-06-24 15:02:53.560 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 15:08:04.074 CST [27556] LOG:  checkpoint completo: escritos 5995 búfers (36.6%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=310.472 s, sync=0.024 s, total=310.515 s; archivos sincronizados=5, más largo=0.020 s, promedio=0.005 s; distancia=5833 kB, estimación=7970 kB; lsn=0/8C8984E8, lsn de redo=0/8C6EC5B0
+2025-06-24 15:13:04.078 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 15:14:20.077 CST [27556] LOG:  checkpoint completo: escritos 701 búfers (4.3%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=75.979 s, sync=0.004 s, total=76.000 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.002 s; distancia=5121 kB, estimación=7685 kB; lsn=0/8CCCB560, lsn de redo=0/8CBECA88
+2025-06-24 15:28:08.482 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 15:31:18.683 CST [27556] LOG:  checkpoint completo: escritos 1756 búfers (10.7%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=190.167 s, sync=0.010 s, total=190.202 s; archivos sincronizados=11, más largo=0.002 s, promedio=0.001 s; distancia=3506 kB, estimación=7267 kB; lsn=0/8D143F50, lsn de redo=0/8CF59338
+2025-06-24 15:33:08.640 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 15:33:56.043 CST [27556] LOG:  checkpoint completo: escritos 439 búfers (2.7%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=47.370 s, sync=0.009 s, total=47.403 s; archivos sincronizados=3, más largo=0.006 s, promedio=0.003 s; distancia=3196 kB, estimación=6860 kB; lsn=0/8D2F8DF0, lsn de redo=0/8D2785A0
+2025-06-24 15:38:08.979 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 15:38:58.724 CST [27556] LOG:  checkpoint completo: escritos 461 búfers (2.8%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=49.721 s, sync=0.010 s, total=49.746 s; archivos sincronizados=3, más largo=0.006 s, promedio=0.004 s; distancia=3349 kB, estimación=6509 kB; lsn=0/8D63D9D8, lsn de redo=0/8D5BDCB0
+2025-06-24 15:44:24.626 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 15:45:11.041 CST [27556] LOG:  checkpoint completo: escritos 429 búfers (2.6%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=46.388 s, sync=0.008 s, total=46.415 s; archivos sincronizados=3, más largo=0.006 s, promedio=0.003 s; distancia=3118 kB, estimación=6170 kB; lsn=0/8D934B78, lsn de redo=0/8D8C9618
+2025-06-24 15:49:24.039 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 15:52:50.776 CST [27556] LOG:  checkpoint completo: escritos 538 búfers (3.3%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=206.712 s, sync=0.006 s, total=206.738 s; archivos sincronizados=4, más largo=0.003 s, promedio=0.002 s; distancia=4061 kB, estimación=5959 kB; lsn=0/8DCDDB08, lsn de redo=0/8DCC0A70
+2025-06-24 15:54:24.780 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 15:54:36.557 CST [27556] LOG:  checkpoint completo: escritos 109 búfers (0.7%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=11.755 s, sync=0.008 s, total=11.778 s; archivos sincronizados=3, más largo=0.006 s, promedio=0.003 s; distancia=772 kB, estimación=5440 kB; lsn=0/8DD81CD0, lsn de redo=0/8DD81C40
+2025-06-24 15:59:24.554 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 16:00:02.391 CST [27556] LOG:  checkpoint completo: escritos 349 búfers (2.1%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=37.816 s, sync=0.006 s, total=37.838 s; archivos sincronizados=4, más largo=0.002 s, promedio=0.002 s; distancia=2524 kB, estimación=5149 kB; lsn=0/8E072218, lsn de redo=0/8DFF8DA8
+2025-06-24 16:04:24.388 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 16:09:46.829 CST [27556] LOG:  checkpoint completo: escritos 2479 búfers (15.1%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=322.383 s, sync=0.031 s, total=322.441 s; archivos sincronizados=11, más largo=0.013 s, promedio=0.003 s; distancia=2355 kB, estimación=4869 kB; lsn=0/8E2DB660, lsn de redo=0/8E245A00
+2025-06-24 17:08:09.751 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 17:08:32.731 CST [27556] LOG:  checkpoint completo: escritos 213 búfers (1.3%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=22.960 s, sync=0.005 s, total=22.980 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.002 s; distancia=1538 kB, estimación=4536 kB; lsn=0/8E3C6470, lsn de redo=0/8E3C63E0
+2025-06-24 17:13:09.724 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 17:13:30.796 CST [27556] LOG:  checkpoint completo: escritos 195 búfers (1.2%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=21.055 s, sync=0.003 s, total=21.072 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.001 s; distancia=1395 kB, estimación=4222 kB; lsn=0/8E5570B8, lsn de redo=0/8E523360
+2025-06-24 17:18:09.793 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 17:18:44.869 CST [27556] LOG:  checkpoint completo: escritos 323 búfers (2.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=35.060 s, sync=0.004 s, total=35.077 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.002 s; distancia=2360 kB, estimación=4036 kB; lsn=0/8E7A9B68, lsn de redo=0/8E7715D0
+2025-06-24 17:23:09.878 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 17:27:39.094 CST [27556] LOG:  checkpoint completo: escritos 5279 búfers (32.2%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=269.195 s, sync=0.007 s, total=269.217 s; archivos sincronizados=5, más largo=0.002 s, promedio=0.002 s; distancia=3116 kB, estimación=3944 kB; lsn=0/8ED22CC0, lsn de redo=0/8EA7C820
+2025-06-24 17:28:09.090 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 17:28:51.555 CST [27556] LOG:  checkpoint completo: escritos 392 búfers (2.4%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=42.446 s, sync=0.004 s, total=42.466 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.002 s; distancia=2913 kB, estimación=3841 kB; lsn=0/8EDBCE98, lsn de redo=0/8ED54E20
+2025-06-24 17:33:09.568 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 17:33:51.216 CST [27556] LOG:  checkpoint completo: escritos 385 búfers (2.3%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=41.616 s, sync=0.005 s, total=41.649 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.002 s; distancia=2809 kB, estimación=3738 kB; lsn=0/8F069928, lsn de redo=0/8F013360
+2025-06-24 17:54:33.410 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 17:54:51.121 CST [27556] LOG:  checkpoint completo: escritos 165 búfers (1.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=17.695 s, sync=0.006 s, total=17.712 s; archivos sincronizados=3, más largo=0.003 s, promedio=0.002 s; distancia=1191 kB, estimación=3483 kB; lsn=0/8F13D028, lsn de redo=0/8F13CF98
+2025-06-24 18:04:33.120 CST [27556] LOG:  empezando checkpoint: time
+2025-06-24 18:04:37.884 CST [27556] LOG:  checkpoint completo: escritos 46 búfers (0.3%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=4.736 s, sync=0.008 s, total=4.765 s; archivos sincronizados=3, más largo=0.006 s, promedio=0.003 s; distancia=296 kB, estimación=3164 kB; lsn=0/8F187160, lsn de redo=0/8F187108
+2025-06-24 18:11:56.754 CST [32176] LOG:  se recibió petición de apagado rápido
+2025-06-24 18:11:56.758 CST [34300] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-24 18:11:56.762 CST [32176] LOG:  abortando transacciones activas
+2025-06-24 18:11:56.766 CST [32176] LOG:  proceso ayudante «logical replication launcher» (PID 34300) terminó con código de salida 1
+2025-06-24 18:11:56.774 CST [27556] LOG:  apagando
+2025-06-24 18:11:56.776 CST [27556] LOG:  empezando checkpoint: shutdown immediate
+2025-06-24 18:11:56.790 CST [27556] LOG:  checkpoint completo: escritos 1 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.002 s, sync=0.001 s, total=0.016 s; archivos sincronizados=1, más largo=0.001 s, promedio=0.001 s; distancia=2 kB, estimación=2848 kB; lsn=0/8F187B98, lsn de redo=0/8F187B98
+2025-06-24 18:11:56.821 CST [32176] LOG:  el sistema de bases de datos está apagado
+2025-06-24 18:12:00.330 CST [29532] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-24 18:12:00.342 CST [29532] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-24 18:12:00.342 CST [29532] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-24 18:12:00.441 CST [15392] LOG:  el sistema de bases de datos fue apagado en 2025-06-24 18:11:56 CST
+2025-06-24 18:12:00.500 CST [29532] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-24 18:17:00.438 CST [12772] LOG:  empezando checkpoint: time
+2025-06-24 18:17:44.124 CST [12772] LOG:  checkpoint completo: escritos 404 búfers (2.5%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=43.662 s, sync=0.010 s, total=43.689 s; archivos sincronizados=5, más largo=0.006 s, promedio=0.002 s; distancia=2987 kB, estimación=2987 kB; lsn=0/8F519918, lsn de redo=0/8F472970
+2025-06-24 18:28:02.753 CST [12772] LOG:  empezando checkpoint: time
+2025-06-24 18:28:12.700 CST [29532] LOG:  se recibió petición de apagado rápido
+2025-06-24 18:28:12.704 CST [28160] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-24 18:28:12.707 CST [29532] LOG:  abortando transacciones activas
+2025-06-24 18:28:12.711 CST [31472] FATAL:  terminando la conexiÃ³n debido a una orden del administrador
+2025-06-24 18:28:12.712 CST [29532] LOG:  proceso ayudante «logical replication launcher» (PID 28160) terminó con código de salida 1
+2025-06-24 18:28:12.756 CST [12772] LOG:  checkpoint completo: escritos 748 búfers (4.6%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=9.973 s, sync=0.012 s, total=10.003 s; archivos sincronizados=9, más largo=0.007 s, promedio=0.002 s; distancia=3247 kB, estimación=3247 kB; lsn=0/8F7B5908, lsn de redo=0/8F79E678
+2025-06-24 18:28:12.765 CST [12772] LOG:  apagando
+2025-06-24 18:28:12.768 CST [12772] LOG:  empezando checkpoint: shutdown immediate
+2025-06-24 18:28:12.789 CST [12772] LOG:  checkpoint completo: escritos 14 búfers (0.1%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.004 s, sync=0.003 s, total=0.024 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.002 s; distancia=92 kB, estimación=2931 kB; lsn=0/8F7B5980, lsn de redo=0/8F7B5980
+2025-06-24 18:28:12.809 CST [29532] LOG:  el sistema de bases de datos está apagado
+2025-06-24 18:31:22.053 CST [16672] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-24 18:31:22.063 CST [16672] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-24 18:31:22.063 CST [16672] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-24 18:31:22.153 CST [30636] LOG:  el sistema de bases de datos fue apagado en 2025-06-24 18:28:12 CST
+2025-06-24 18:31:22.202 CST [16672] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-24 18:31:27.027 CST [32452] ERROR:  no existe la columna Â«clientÂ» en carÃ¡cter 53
+2025-06-24 18:31:27.027 CST [32452] HINT:  Probablemente quiera hacer referencia a la columna Â«baseline_model_results.ClientÂ».
+2025-06-24 18:31:27.027 CST [32452] SENTENCIA:  
+	  DELETE FROM ceran.baseline_model_results
+	  WHERE Client IN ('Metro', 'Plaza Vea');
+	
+2025-06-24 18:36:22.127 CST [30772] LOG:  empezando checkpoint: time
+2025-06-24 18:38:30.232 CST [30772] LOG:  checkpoint completo: escritos 1178 búfers (7.2%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=128.075 s, sync=0.006 s, total=128.110 s; archivos sincronizados=5, más largo=0.002 s, promedio=0.002 s; distancia=10273 kB, estimación=10273 kB; lsn=0/90326DF0, lsn de redo=0/901BE068
+2025-06-24 18:41:22.230 CST [30772] LOG:  empezando checkpoint: time
+2025-06-24 18:42:12.961 CST [30772] LOG:  checkpoint completo: escritos 471 búfers (2.9%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=50.713 s, sync=0.003 s, total=50.731 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.001 s; distancia=3433 kB, estimación=9589 kB; lsn=0/90588F18, lsn de redo=0/90518718
+2025-06-24 18:46:22.959 CST [30772] LOG:  empezando checkpoint: time
+2025-06-24 18:47:16.126 CST [30772] LOG:  checkpoint completo: escritos 493 búfers (3.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=53.150 s, sync=0.004 s, total=53.168 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.002 s; distancia=3610 kB, estimación=8991 kB; lsn=0/90930F20, lsn de redo=0/9089F278
+2025-06-24 18:51:22.120 CST [30772] LOG:  empezando checkpoint: time
+2025-06-24 18:55:52.112 CST [30772] LOG:  checkpoint completo: escritos 2591 búfers (15.8%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=269.970 s, sync=0.008 s, total=269.992 s; archivos sincronizados=10, más largo=0.001 s, promedio=0.001 s; distancia=3529 kB, estimación=8445 kB; lsn=0/90F45500, lsn de redo=0/90C116C8
+2025-06-24 18:56:22.125 CST [30772] LOG:  empezando checkpoint: time
+2025-06-24 18:57:17.001 CST [30772] LOG:  checkpoint completo: escritos 507 búfers (3.1%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=54.859 s, sync=0.003 s, total=54.877 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.001 s; distancia=3681 kB, estimación=7969 kB; lsn=0/910448A8, lsn de redo=0/90FA9AE8
+2025-06-24 19:01:23.006 CST [30772] LOG:  empezando checkpoint: time
+2025-06-24 19:02:17.488 CST [30772] LOG:  checkpoint completo: escritos 504 búfers (3.1%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=54.456 s, sync=0.003 s, total=54.483 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.001 s; distancia=3660 kB, estimación=7538 kB; lsn=0/913F01F8, lsn de redo=0/9133CCD0
+2025-06-24 19:06:23.495 CST [30772] LOG:  empezando checkpoint: time
+2025-06-24 19:07:17.706 CST [30772] LOG:  checkpoint completo: escritos 501 búfers (3.1%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=54.197 s, sync=0.004 s, total=54.212 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.002 s; distancia=3644 kB, estimación=7148 kB; lsn=0/91762728, lsn de redo=0/916CBE18
+2025-06-24 19:11:23.707 CST [30772] LOG:  empezando checkpoint: time
+2025-06-24 19:12:18.341 CST [30772] LOG:  checkpoint completo: escritos 504 búfers (3.1%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=54.615 s, sync=0.004 s, total=54.635 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.002 s; distancia=3665 kB, estimación=6800 kB; lsn=0/91AD76A8, lsn de redo=0/91A60548
+2025-06-24 19:16:23.346 CST [30772] LOG:  empezando checkpoint: time
+2025-06-24 19:21:45.447 CST [30772] LOG:  checkpoint completo: escritos 5302 búfers (32.4%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=322.069 s, sync=0.016 s, total=322.101 s; archivos sincronizados=5, más largo=0.013 s, promedio=0.004 s; distancia=4568 kB, estimación=6577 kB; lsn=0/91F90C00, lsn de redo=0/91ED6818
+2025-06-24 19:42:25.949 CST [30772] LOG:  empezando checkpoint: time
+2025-06-24 19:42:49.065 CST [30772] LOG:  checkpoint completo: escritos 214 búfers (1.3%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=23.094 s, sync=0.005 s, total=23.116 s; archivos sincronizados=4, más largo=0.002 s, promedio=0.002 s; distancia=1623 kB, estimación=6081 kB; lsn=0/9206C5F0, lsn de redo=0/9206C560
+2025-06-24 19:48:11.044 CST [16672] LOG:  se recibió petición de apagado rápido
+2025-06-24 19:48:11.047 CST [16672] LOG:  abortando transacciones activas
+2025-06-24 19:48:11.049 CST [17772] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-24 19:48:11.055 CST [16672] LOG:  proceso ayudante «logical replication launcher» (PID 17772) terminó con código de salida 1
+2025-06-24 19:48:11.056 CST [30772] LOG:  apagando
+2025-06-24 19:48:11.057 CST [30772] LOG:  empezando checkpoint: shutdown immediate
+2025-06-24 19:48:11.070 CST [30772] LOG:  checkpoint completo: escritos 0 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.001 s, sync=0.001 s, total=0.015 s; archivos sincronizados=0, más largo=0.000 s, promedio=0.000 s; distancia=0 kB, estimación=5473 kB; lsn=0/9206C6A0, lsn de redo=0/9206C6A0
+2025-06-24 19:48:11.090 CST [16672] LOG:  el sistema de bases de datos está apagado
+2025-06-24 19:48:13.423 CST [15144] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-24 19:48:13.432 CST [15144] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-24 19:48:13.432 CST [15144] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-24 19:48:13.626 CST [5476] LOG:  el sistema de bases de datos fue apagado en 2025-06-24 19:48:11 CST
+2025-06-24 19:48:13.680 CST [15144] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-24 19:53:13.517 CST [19920] LOG:  empezando checkpoint: time
+2025-06-24 19:53:13.786 CST [19920] LOG:  checkpoint completo: escritos 5 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.222 s, sync=0.011 s, total=0.276 s; archivos sincronizados=3, más largo=0.005 s, promedio=0.004 s; distancia=12 kB, estimación=12 kB; lsn=0/9206F8E0, lsn de redo=0/9206F888
+2025-06-24 19:57:44.122 CST [15144] LOG:  se recibió petición de apagado rápido
+2025-06-24 19:57:44.125 CST [15144] LOG:  abortando transacciones activas
+2025-06-24 19:57:44.126 CST [29632] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-24 19:57:44.129 CST [10512] FATAL:  terminando la conexiÃ³n debido a una orden del administrador
+2025-06-24 19:57:44.133 CST [15144] LOG:  proceso ayudante «logical replication launcher» (PID 29632) terminó con código de salida 1
+2025-06-24 19:57:44.137 CST [19920] LOG:  apagando
+2025-06-24 19:57:44.140 CST [19920] LOG:  empezando checkpoint: shutdown immediate
+2025-06-24 19:57:44.148 CST [19920] LOG:  checkpoint completo: escritos 0 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.001 s, sync=0.001 s, total=0.011 s; archivos sincronizados=0, más largo=0.000 s, promedio=0.000 s; distancia=0 kB, estimación=11 kB; lsn=0/9206F990, lsn de redo=0/9206F990
+2025-06-24 19:57:44.162 CST [15144] LOG:  el sistema de bases de datos está apagado
+2025-06-24 19:57:55.644 CST [14760] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-24 19:57:55.654 CST [14760] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-24 19:57:55.654 CST [14760] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-24 19:57:55.757 CST [23960] LOG:  el sistema de bases de datos fue apagado en 2025-06-24 19:57:44 CST
+2025-06-24 19:57:55.813 CST [14760] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-24 20:02:55.740 CST [7400] LOG:  empezando checkpoint: time
+2025-06-24 20:03:43.055 CST [7400] LOG:  checkpoint completo: escritos 438 búfers (2.7%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=47.297 s, sync=0.004 s, total=47.318 s; archivos sincronizados=5, más largo=0.002 s, promedio=0.001 s; distancia=3192 kB, estimación=3192 kB; lsn=0/92435788, lsn de redo=0/9238DCC0
+2025-06-24 20:07:55.054 CST [7400] LOG:  empezando checkpoint: time
+2025-06-24 20:28:26.012 CST [7400] LOG:  checkpoint completo: escritos 786 búfers (4.8%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=1230.926 s, sync=0.018 s, total=1230.958 s; archivos sincronizados=10, más largo=0.012 s, promedio=0.002 s; distancia=5544 kB, estimación=5544 kB; lsn=0/92938F68, lsn de redo=0/928F7FD8
+2025-06-24 20:33:26.029 CST [7400] LOG:  empezando checkpoint: time
+2025-06-24 20:34:56.866 CST [7400] LOG:  checkpoint completo: escritos 840 búfers (5.1%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=90.813 s, sync=0.007 s, total=90.837 s; archivos sincronizados=4, más largo=0.002 s, promedio=0.002 s; distancia=6378 kB, estimación=6378 kB; lsn=0/93028600, lsn de redo=0/92F32850
+2025-06-24 20:38:26.866 CST [7400] LOG:  empezando checkpoint: time
+2025-06-24 23:50:46.173 CST [7400] LOG:  checkpoint completo: escritos 327 búfers (2.0%); 0 archivos WAL añadidos, 1 eliminados, 0 reciclados; write=11539.220 s, sync=0.062 s, total=11539.308 s; archivos sincronizados=3, más largo=0.054 s, promedio=0.021 s; distancia=2379 kB, estimación=5978 kB; lsn=0/93191928, lsn de redo=0/931857A0
+2025-06-25 10:57:35.038 CST [7400] LOG:  empezando checkpoint: time
+2025-06-25 10:57:41.598 CST [7400] LOG:  checkpoint completo: escritos 63 búfers (0.4%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=6.544 s, sync=0.004 s, total=6.560 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.002 s; distancia=436 kB, estimación=5424 kB; lsn=0/931F28E8, lsn de redo=0/931F2858
+2025-06-25 11:00:19.964 CST [14760] LOG:  se recibió petición de apagado rápido
+2025-06-25 11:00:19.966 CST [14760] LOG:  abortando transacciones activas
+2025-06-25 11:00:19.974 CST [14760] LOG:  proceso ayudante «logical replication launcher» (PID 30884) terminó con código de salida 1
+2025-06-25 11:00:19.975 CST [7400] LOG:  apagando
+2025-06-25 11:00:19.977 CST [7400] LOG:  empezando checkpoint: shutdown immediate
+2025-06-25 11:00:19.987 CST [7400] LOG:  checkpoint completo: escritos 0 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.001 s, sync=0.001 s, total=0.012 s; archivos sincronizados=0, más largo=0.000 s, promedio=0.000 s; distancia=0 kB, estimación=4881 kB; lsn=0/931F2998, lsn de redo=0/931F2998
+2025-06-25 11:00:20.002 CST [14760] LOG:  el sistema de bases de datos está apagado
+2025-06-25 11:00:22.776 CST [7936] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-25 11:00:22.786 CST [7936] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-25 11:00:22.786 CST [7936] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-25 11:00:22.889 CST [25680] LOG:  el sistema de bases de datos fue apagado en 2025-06-25 11:00:19 CST
+2025-06-25 11:00:22.945 CST [7936] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-25 11:05:22.994 CST [4696] LOG:  empezando checkpoint: time
+2025-06-25 11:05:23.014 CST [4696] LOG:  checkpoint completo: escritos 3 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.004 s, sync=0.004 s, total=0.023 s; archivos sincronizados=2, más largo=0.002 s, promedio=0.002 s; distancia=0 kB, estimación=0 kB; lsn=0/931F2AA0, lsn de redo=0/931F2A48
+2025-06-25 11:10:22.018 CST [4696] LOG:  empezando checkpoint: time
+2025-06-25 11:10:27.792 CST [4696] LOG:  checkpoint completo: escritos 53 búfers (0.3%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=5.760 s, sync=0.003 s, total=5.774 s; archivos sincronizados=4, más largo=0.001 s, promedio=0.001 s; distancia=19 kB, estimación=19 kB; lsn=0/931F7928, lsn de redo=0/931F7898
+2025-06-25 11:14:02.060 CST [4696] LOG:  empezando checkpoint: wal
+2025-06-25 11:18:32.160 CST [4696] LOG:  checkpoint completo: escritos 6121 búfers (37.4%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=269.969 s, sync=0.020 s, total=270.101 s; archivos sincronizados=44, más largo=0.002 s, promedio=0.001 s; distancia=539892 kB, estimación=539892 kB; lsn=0/C52BC650, lsn de redo=0/B41349D0
+2025-06-25 11:24:02.885 CST [4696] LOG:  empezando checkpoint: time
+2025-06-25 11:28:32.138 CST [4696] LOG:  checkpoint completo: escritos 5075 búfers (31.0%); 0 archivos WAL añadidos, 0 eliminados, 17 reciclados; write=269.171 s, sync=0.013 s, total=269.254 s; archivos sincronizados=21, más largo=0.002 s, promedio=0.001 s; distancia=280099 kB, estimación=513913 kB; lsn=0/C52BD908, lsn de redo=0/C52BD878
+2025-06-25 11:33:49.345 CST [4696] LOG:  empezando checkpoint: wal
+2025-06-25 11:38:19.143 CST [4696] LOG:  checkpoint completo: escritos 6191 búfers (37.8%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=269.658 s, sync=0.022 s, total=269.799 s; archivos sincronizados=46, más largo=0.002 s, promedio=0.001 s; distancia=540527 kB, estimación=540527 kB; lsn=0/F75C57F0, lsn de redo=0/E62994B8
