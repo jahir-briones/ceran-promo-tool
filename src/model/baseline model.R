@@ -21,32 +21,17 @@ source("lib/con_pg.R")
 parts <- paste(sapply(names(filters), function(nm) sprintf("%s in ({%s*})", nm, nm)), collapse = " OR ")
 
 query <- glue_data_sql(filters, paste("SELECT * FROM ceran.discounts where", 
-                                      parts,"AND date >= '2024-01-01'"), .con = con)
+                                      parts,"--AND date >= '2024-01-01'"), .con = con)
 discounts <- dbGetQuery(con, query)
-
-# discounts <- dbGetQuery(con, "SELECT * FROM ceran.discounts where 
-#                         --country = 'Costa Rica' 
-#                         --OR 
-#                         client IN('Mi Farma')--,'Farmatodo', 'Inkafarma','Mi Farma')
-#                         ")
-
 
 query <- glue_data_sql(filters, paste("SELECT DISTINCT
           date, year, month, client, 
           country, ean, sku, real_units, real_sales
-          FROM ceran.sell_out WHERE", parts, "AND date >= '2024-01-01'"), .con = con)
+          FROM ceran.sell_out WHERE", parts, "--AND date >= '2024-01-01'"), .con = con)
 
 # Fetch sell out data
 sell_out <- dbGetQuery(con, query)
-# sell_out <- dbGetQuery(con, "
-#                         SELECT DISTINCT
-#                         date, year, month, client, country, ean, sku, real_units, real_sales
-#                         FROM ceran.sell_out
-#                          where 
-#                         --country = 'Costa Rica' 
-#                         --OR 
-#                         client IN('Mi Farma')--,'Farmatodo', 'Inkafarma','Mi Farma')
-#                        ")
+
 table(sell_out$client)
 
 discounts2 <- discounts %>% 
@@ -620,8 +605,8 @@ table_created <- condition_write_table
 
 t <- Sys.time()
 i <- 1
-system('pg_ctl -D "C:/Users/jahir.briones/AppData/Roaming/pgsql/RGM" -l archivo_de_registro start')
-source("lib/con_pg.R")
+#system('pg_ctl -D "C:/Users/jahir.briones/AppData/Roaming/pgsql/RGM" -l archivo_de_registro start')
+#source("lib/con_pg.R")
 
 # Loop through each unique combination
 for (row in seq_len(nrow(unique_combinations))) {

@@ -1201,3 +1201,36 @@
 2025-06-25 11:28:32.138 CST [4696] LOG:  checkpoint completo: escritos 5075 búfers (31.0%); 0 archivos WAL añadidos, 0 eliminados, 17 reciclados; write=269.171 s, sync=0.013 s, total=269.254 s; archivos sincronizados=21, más largo=0.002 s, promedio=0.001 s; distancia=280099 kB, estimación=513913 kB; lsn=0/C52BD908, lsn de redo=0/C52BD878
 2025-06-25 11:33:49.345 CST [4696] LOG:  empezando checkpoint: wal
 2025-06-25 11:38:19.143 CST [4696] LOG:  checkpoint completo: escritos 6191 búfers (37.8%); 0 archivos WAL añadidos, 0 eliminados, 33 reciclados; write=269.658 s, sync=0.022 s, total=269.799 s; archivos sincronizados=46, más largo=0.002 s, promedio=0.001 s; distancia=540527 kB, estimación=540527 kB; lsn=0/F75C57F0, lsn de redo=0/E62994B8
+2025-06-26 09:33:55.917 CST [4696] LOG:  empezando checkpoint: time
+2025-06-26 09:38:25.104 CST [4696] LOG:  checkpoint completo: escritos 3383 búfers (20.6%); 0 archivos WAL añadidos, 0 eliminados, 17 reciclados; write=269.106 s, sync=0.011 s, total=269.188 s; archivos sincronizados=18, más largo=0.002 s, promedio=0.001 s; distancia=281783 kB, estimación=514652 kB; lsn=0/F75C7160, lsn de redo=0/F75C70D0
+2025-06-26 15:28:39.514 CST [7936] LOG:  se recibió petición de apagado rápido
+2025-06-26 15:28:39.520 CST [7936] LOG:  abortando transacciones activas
+2025-06-26 15:28:39.523 CST [27472] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-26 15:28:39.524 CST [22236] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-26 15:28:39.527 CST [23700] FATAL:  terminando la conexiÃ³n debido a una orden del administrador
+2025-06-26 15:28:39.540 CST [7936] LOG:  proceso ayudante «logical replication launcher» (PID 27472) terminó con código de salida 1
+2025-06-26 15:28:39.546 CST [4696] LOG:  apagando
+2025-06-26 15:28:39.551 CST [4696] LOG:  empezando checkpoint: shutdown immediate
+2025-06-26 15:28:39.573 CST [4696] LOG:  checkpoint completo: escritos 0 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.001 s, sync=0.001 s, total=0.026 s; archivos sincronizados=0, más largo=0.000 s, promedio=0.000 s; distancia=0 kB, estimación=463187 kB; lsn=0/F75C7210, lsn de redo=0/F75C7210
+2025-06-26 15:28:39.610 CST [7936] LOG:  el sistema de bases de datos está apagado
+2025-06-26 15:28:43.036 CST [22252] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-26 15:28:43.055 CST [22252] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-26 15:28:43.055 CST [22252] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-26 15:28:43.255 CST [34060] LOG:  el sistema de bases de datos fue apagado en 2025-06-26 15:28:39 CST
+2025-06-26 15:28:43.355 CST [22252] LOG:  el sistema de bases de datos está listo para aceptar conexiones
+2025-06-26 15:30:09.979 CST [22252] LOG:  se recibió petición de apagado rápido
+2025-06-26 15:30:09.982 CST [22252] LOG:  abortando transacciones activas
+2025-06-26 15:30:09.984 CST [35848] ERROR:  cancelando la sentencia debido a una petición del usuario
+2025-06-26 15:30:09.986 CST [3584] FATAL:  terminando la conexiÃ³n debido a una orden del administrador
+2025-06-26 15:30:09.987 CST [6080] FATAL:  terminando la conexiÃ³n debido a una orden del administrador
+2025-06-26 15:30:09.987 CST [33644] FATAL:  terminando la conexiÃ³n debido a una orden del administrador
+2025-06-26 15:30:09.996 CST [22252] LOG:  proceso ayudante «logical replication launcher» (PID 35848) terminó con código de salida 1
+2025-06-26 15:30:10.004 CST [41356] LOG:  apagando
+2025-06-26 15:30:10.006 CST [41356] LOG:  empezando checkpoint: shutdown immediate
+2025-06-26 15:30:10.038 CST [41356] LOG:  checkpoint completo: escritos 4 búfers (0.0%); 0 archivos WAL añadidos, 0 eliminados, 0 reciclados; write=0.011 s, sync=0.005 s, total=0.035 s; archivos sincronizados=3, más largo=0.002 s, promedio=0.002 s; distancia=0 kB, estimación=0 kB; lsn=0/F75C72C0, lsn de redo=0/F75C72C0
+2025-06-26 15:30:10.060 CST [22252] LOG:  el sistema de bases de datos está apagado
+2025-06-26 15:30:13.216 CST [12664] LOG:  iniciando PostgreSQL 17.2 on x86_64-windows, compiled by msvc-19.42.34435, 64-bit
+2025-06-26 15:30:13.231 CST [12664] LOG:  escuchando en la dirección IPv4 «127.0.0.1», port 5432
+2025-06-26 15:30:13.232 CST [12664] LOG:  escuchando en la dirección IPv6 «::1», port 5432
+2025-06-26 15:30:13.373 CST [36968] LOG:  el sistema de bases de datos fue apagado en 2025-06-26 15:30:10 CST
+2025-06-26 15:30:13.467 CST [12664] LOG:  el sistema de bases de datos está listo para aceptar conexiones
